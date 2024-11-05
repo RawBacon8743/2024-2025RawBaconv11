@@ -10,6 +10,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.configuration.ServoFlavor;
+import com.qualcomm.robotcore.hardware.configuration.annotations.DeviceProperties;
+import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -17,6 +20,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name="RawBaconTeleop")
+//@ServoType(flavor = ServoFlavor.CONTINUOUS)
+//@DeviceProperties(xmlTag = "Servo", name = "@string/configTypeServo")
+
 
 public class RawBaconTeleop extends OpMode {
 
@@ -25,6 +31,14 @@ public class RawBaconTeleop extends OpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    DcMotor armMotor;
+    DcMotor armPivotMotor;
+    CRServo leftIntake;
+    CRServo rightIntake;
+//    Servo leftIntake;
+
+//    Servo rightIntake;
+
     //    DcMotorEx ArmMotor;
 //    DcMotorEx winch;
 //    Servo Grabber;
@@ -49,6 +63,11 @@ public class RawBaconTeleop extends OpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
+        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
+        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
+        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
+        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
+
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
         backright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -84,6 +103,7 @@ public class RawBaconTeleop extends OpMode {
     public void start() {
         //isrunning = true;
 
+
     }
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -100,8 +120,8 @@ public class RawBaconTeleop extends OpMode {
 
         int ArmMotorPosition = 0;
 
-
         double Pad2LeftStickY = gamepad2.left_stick_y;
+        double Pad2RightStickY = gamepad2.right_stick_y;
         double LeftStickY = gamepad1.left_stick_y;
         double LeftStickX = -gamepad1.left_stick_x;
         double RightStickX = -gamepad1.right_stick_x;
@@ -111,6 +131,20 @@ public class RawBaconTeleop extends OpMode {
         backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
         frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
         backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed);
+
+//        if(gamepad2.left_trigger == 1){
+//
+//            leftIntake.setPosition(0.6);
+//            rightIntake.setPosition(0.4);
+//
+//        } else if(gamepad2.right_trigger == 1){
+//
+//            leftIntake.setPosition(0.4);
+//            rightIntake.setPosition(0.6);
+//
+//        } else
+//            leftIntake.setPosition(0.5);
+//            rightIntake.setPosition(0.5);
 
 //D-PAD STRAFING CODE (NOT WORKING RIGHT)
       /*  if (gamepad1.dpad_left) {
@@ -135,7 +169,26 @@ public class RawBaconTeleop extends OpMode {
             backright.setPower(-1);
         }*/
 
-//        ArmMotor.setPower(Pad2LeftStickY / 2);
+        armMotor.setPower(Pad2LeftStickY / 2);
+        armPivotMotor.setPower(Pad2RightStickY / 2);
+
+        if (gamepad2.left_trigger == 1) {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+        } else if (gamepad2.right_trigger == 1) {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+        } else {
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+
+
+
 //
 //        if (gamepad2.left_bumper) {
 //            Grabber.setPosition(0.14);
@@ -152,8 +205,8 @@ public class RawBaconTeleop extends OpMode {
 //        }
 
 
-//        if (ball == 0) {
-//            ArmMotorPosition = ArmMotor.getCurrentPosition();
+        if (ball == 0) {
+            ArmMotorPosition = armMotor.getCurrentPosition();
 //            winch.setTargetPosition(4 * ArmMotorPosition);
 //            winch.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //            winch.setVelocity(5000);
@@ -163,7 +216,7 @@ public class RawBaconTeleop extends OpMode {
 //            GrabberPivot.setPosition(0.77);
 //        } else {
 //            GrabberPivot.setPosition(1);
-//        }
+        }
 
 
 
