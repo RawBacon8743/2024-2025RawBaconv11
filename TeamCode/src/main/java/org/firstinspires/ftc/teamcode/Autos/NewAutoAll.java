@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.CV;
+package org.firstinspires.ftc.teamcode.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -131,42 +131,57 @@ public class NewAutoAll extends LinearOpMode {
         goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, 180, 0.5*COUNTS_PER_INCH); */
 
         //LeftRed
-        sleep(1000);
+//        sleep(1000);
 
+        //B
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
 
-//        goToPosition(-18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        //drop specimen
-//        goToPosition(18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(36, 70, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(38, 0, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(44, 54, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(44, 6, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(60, 48, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(51, 3, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 //        sleep(5000);
-        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
-        backright.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setPower(0.2);
-        frontright.setPower(0.2);
-        backleft.setPower(0.2);
-        backright.setPower(0.2);
-        sleep(1800);
-        frontright.setDirection(DcMotorSimple.Direction.FORWARD);
-        backright.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setPower(0.2);
-        frontright.setPower(0.2);
-        backleft.setPower(0.2);
-        backright.setPower(0.2);
-        sleep(4500);
-        frontleft.setPower(0);
-        frontright.setPower(0);
-        backleft.setPower(0);
-        backright.setPower(0);
+//        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backright.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setPower(0.2);
+//        frontright.setPower(0.2);
+//        backleft.setPower(0.2);
+//        backright.setPower(0.2);
+//        sleep(1800);
+//        frontright.setDirection(DcMotorSimple.Direction.FORWARD);
+//        backright.setDirection(DcMotorSimple.Direction.FORWARD);
+//        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setPower(0.2);
+//        frontright.setPower(0.2);
+//        backleft.setPower(0.2);
+//        backright.setPower(0.2);
+//        sleep(4500);
+//        frontleft.setPower(0);
+//        frontright.setPower(0);
+//        backleft.setPower(0);
+//        backright.setPower(0);
         //super cool coding
 
 //        goToPosition(48*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.2, 0, 0.5*COUNTS_PER_INCH);
