@@ -47,7 +47,6 @@ public class RawBaconTeleop extends OpMode {
 //    Servo GrabberPivot;
     Double Speed;
     Double Velocity;
-    int ball = 0;
 
     //boolean isrunning;
 
@@ -112,13 +111,14 @@ public class RawBaconTeleop extends OpMode {
     public void loop() {
         //if  (isrunning) {
 
-//        if (gamepad1.left_trigger == 1) {
-//            Speed = 0.2;
-//        } else if (gamepad1.left_trigger == 0) {
-//            Speed = 0.6;
-//        }
+        if (gamepad1.left_trigger == 1) {
+            Speed = 0.2;
+        } else if (gamepad1.left_trigger == 0) {
+            Speed = 0.6;
+        }
 
         int ArmMotorPosition = 0;
+        int PivotMotorPostion = 0;
 
         double Pad2LeftStickY = gamepad2.left_stick_y;
         double Pad2RightStickY = gamepad2.right_stick_y;
@@ -131,6 +131,50 @@ public class RawBaconTeleop extends OpMode {
         backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
         frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
         backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed);
+
+        // intake
+        if (gamepad2.left_trigger == 1) {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+        } else if (gamepad2.right_trigger == 1) {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+        } else {
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+
+
+        ArmMotorPosition = armMotor.getCurrentPosition();
+        PivotMotorPostion = armPivotMotor.getCurrentPosition();
+
+
+        //limits the range of the pivot motor
+        if (PivotMotorPostion >= 100) {
+
+            if (Pad2RightStickY < 0)
+                armPivotMotor.setPower(Pad2RightStickY / 2);
+        }
+        else if  (PivotMotorPostion < 20) {
+
+            if (Pad2RightStickY > 0)
+                armPivotMotor.setPower(Pad2RightStickY / 2);
+        }
+        else armPivotMotor.setPower(Pad2RightStickY / 2);
+
+        //runs arm motor if pivot is up
+        if (PivotMotorPostion >= 70){
+
+            armMotor.setPower(Pad2LeftStickY / 2);
+        }
+
+        telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
+        telemetry.addData("PivotMotorPostion: ", PivotMotorPostion);
+        telemetry.update();
 
 //        if(gamepad2.left_trigger == 1){
 //
@@ -168,55 +212,6 @@ public class RawBaconTeleop extends OpMode {
             backleft.setPower(-1);
             backright.setPower(-1);
         }*/
-
-        armMotor.setPower(Pad2LeftStickY / 2);
-        armPivotMotor.setPower(Pad2RightStickY / 2);
-
-        if (gamepad2.left_trigger == 1) {
-            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-            leftIntake.setPower(0.5);
-            rightIntake.setPower(0.5);
-        } else if (gamepad2.right_trigger == 1) {
-            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-            leftIntake.setPower(0.5);
-            rightIntake.setPower(0.5);
-        } else {
-            leftIntake.setPower(0);
-            rightIntake.setPower(0);
-        }
-
-
-
-//
-//        if (gamepad2.left_bumper) {
-//            Grabber.setPosition(0.14);
-//
-//        } else if (gamepad2.left_trigger == 1) {
-//            Grabber.setPosition(0.26);
-//
-//        }
-//        else if (gamepad2.right_trigger == 1 & gamepad2.right_bumper) {
-//            Grabber.setPosition(0.5);
-//
-//        } else if (true) {
-//            Grabber.setPosition(0.5);
-//        }
-
-
-        if (ball == 0) {
-            ArmMotorPosition = armMotor.getCurrentPosition();
-//            winch.setTargetPosition(4 * ArmMotorPosition);
-//            winch.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//            winch.setVelocity(5000);
-//        }
-//
-//        if (ArmMotorPosition > -400) {
-//            GrabberPivot.setPosition(0.77);
-//        } else {
-//            GrabberPivot.setPosition(1);
-        }
 
 
 
