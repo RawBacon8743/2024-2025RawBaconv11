@@ -16,8 +16,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "NewAutoAllDelayed")
-public class NewAutoAllDelayed extends LinearOpMode {
+@Autonomous(name = "SimpleAutoDelayed")
+public class SimpleAutoDelayed extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -144,29 +144,35 @@ public class NewAutoAllDelayed extends LinearOpMode {
 //        goToPosition(60, 48, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 //        goToPosition(51, 3, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
+//        sleep(5000);
+//        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backright.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setPower(0.2);
+//        frontright.setPower(0.2);
+//        backleft.setPower(0.2);
+//        backright.setPower(0.2);
+//        sleep(1800);
+//        frontright.setDirection(DcMotorSimple.Direction.FORWARD);
+//        backright.setDirection(DcMotorSimple.Direction.FORWARD);
+//        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
+//        frontleft.setPower(0.2);
+//        frontright.setPower(0.2);
+//        backleft.setPower(0.2);
+//        backright.setPower(0.2);
+//        sleep(4500);
+//        frontleft.setPower(0);
+//        frontright.setPower(0);
+//        backleft.setPower(0);
+//        backright.setPower(0);
+
         sleep(5000);
-        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
-        backright.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setPower(0.2);
-        frontright.setPower(0.2);
-        backleft.setPower(0.2);
-        backright.setPower(0.2);
-        sleep(1800);
-        frontright.setDirection(DcMotorSimple.Direction.FORWARD);
-        backright.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backleft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontleft.setPower(0.2);
-        frontright.setPower(0.2);
-        backleft.setPower(0.2);
-        backright.setPower(0.2);
-        sleep(4500);
-        frontleft.setPower(0);
-        frontright.setPower(0);
-        backleft.setPower(0);
-        backright.setPower(0);
+        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+
         //super cool coding
 
 //        goToPosition(48*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.2, 0, 0.5*COUNTS_PER_INCH);
