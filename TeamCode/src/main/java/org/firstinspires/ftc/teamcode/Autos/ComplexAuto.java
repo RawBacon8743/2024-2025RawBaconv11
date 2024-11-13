@@ -137,26 +137,51 @@ public class ComplexAuto extends LinearOpMode {
 //        sleep(1000);
 
 
+        //move behind samples
         goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //move directly behind first sample
         goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //turn around
         goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //push in front of net zone
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //push into net zone
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //align to get behind samples
+        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(250);
+        //get behind samples
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(250);
+        //get behind second sample
+        goToPosition(-8 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(250);
+        //push in front of net zone
+        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(250);
+        //push into net zone
+        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
+        sleep(250);
+        //position for long move
         goToPosition(-15 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //align for long move
         goToPosition(-15 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
         goToPosition(-12 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //long move
         goToPosition(90 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //align for parking
         goToPosition(90 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
+        sleep(250);
+        //park
         goToPosition(90 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 
