@@ -16,8 +16,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "ComplexAuto")
-public class ComplexAuto extends LinearOpMode {
+@Autonomous(name = "ComplexAutoCorner")
+public class ComplexAutoCorner extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -139,48 +139,40 @@ public class ComplexAuto extends LinearOpMode {
 
         //move behind samples
         goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        sleep(50);
         //move directly behind first sample
-        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //turn around
-        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        goToPosition(-5 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
         //push in front of net zone
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        sleep(50);
         //push into net zone
-        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //align to get behind samples
+        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
+        //go back
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        sleep(50);
         //get behind samples
         goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        sleep(50);
         //get behind second sample
-        goToPosition(-8 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //push in front of net zone
-        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        goToPosition(-16 * COUNTS_PER_INCH, 65 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
         //push into net zone
-        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //position for long move
-        goToPosition(-15 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //align for long move
-        goToPosition(-15 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        goToPosition(-12 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //long move
-        goToPosition(90 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
-        //align for parking
-        goToPosition(90 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(250);
+        goToPosition(-16 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
+        //back out
+        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
+        //rotate
+        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
+        //long move 1
+        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
+        //long move 2
+        goToPosition(90 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+        sleep(50);
         //park
         goToPosition(90 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 

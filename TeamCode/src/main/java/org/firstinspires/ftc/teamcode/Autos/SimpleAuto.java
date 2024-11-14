@@ -164,7 +164,7 @@ public class SimpleAuto extends LinearOpMode {
           goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
           sleep(500);
           goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-
+          sleep(2000);
 
 //        sleep(5000);
 //        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
