@@ -137,52 +137,55 @@ public class ComplexAutoSlant extends LinearOpMode {
 
 
         //move behind samples
-        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 0, 2 * COUNTS_PER_INCH);
+        sleep(25);
         //move directly behind first sample
         goToPosition(-5 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        sleep(25);
         //push in front of net zone
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        sleep(25);
         //push into net zone
-        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(25);
         //go back
         goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        sleep(25);
         //get behind samples
-        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 180, 2 * COUNTS_PER_INCH);
+        sleep(25);
         //get behind second sample
-        goToPosition(-16 * COUNTS_PER_INCH, 65 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(-13 * COUNTS_PER_INCH, 65 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        sleep(25);
         //push into net zone
-        goToPosition(-16 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
-//        //get behind samples
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(50);
-//        //get behind third sample
-//        goToPosition(-22 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(50);
-//        //push to net zone
-//        goToPosition(-22 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(50);
+        goToPosition(-16 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 5, 200, 5 * COUNTS_PER_INCH);
+        sleep(25);
+        //back out
+        goToPosition(-5 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
+        sleep(25);
+        //get behind samples
+        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 180, 2 * COUNTS_PER_INCH);
+        sleep(25);
+        //get behind third sample
+        goToPosition(-24 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 5 * COUNTS_PER_INCH);
+        sleep(25);
+        //push into net zone
+        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 5 * COUNTS_PER_INCH);
+        sleep(25);
         //back out
         goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        sleep(25);
         //rotate
         goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        sleep(25);
         //long move 1
-        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 10 * COUNTS_PER_INCH);
+        sleep(25);
         //long move 2
-        goToPosition(66 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(50);
+        goToPosition(72 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.8, 90, 0.5 * COUNTS_PER_INCH);
+        sleep(25);
         //park
-        goToPosition(66 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        goToPosition(72 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 
 //        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);

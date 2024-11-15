@@ -170,9 +170,9 @@ public class SimpleAutoDelayed extends LinearOpMode {
 
 
         sleep(5000);
-        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
         sleep(500);
-        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
         //super cool coding
 
