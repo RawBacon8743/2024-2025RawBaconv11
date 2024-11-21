@@ -6,18 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.configuration.ServoFlavor;
-import com.qualcomm.robotcore.hardware.configuration.annotations.DeviceProperties;
-import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name="RawBaconTeleop")
 //@ServoType(flavor = ServoFlavor.CONTINUOUS)
@@ -48,6 +37,14 @@ public class RawBaconTeleop extends OpMode {
     Double Speed;
     Double Velocity;
 
+    int PivotTargetPostionUp = 10;
+    int PivotTargetPostionDown = 1;
+    int ArmMotorPosition = 0;
+    int PivotMotorPostion = 0;
+    //0 is automatic mode 1 is manual mode
+    int ArmMode = 1;
+
+
     //boolean isrunning;
 
     @Override
@@ -70,6 +67,7 @@ public class RawBaconTeleop extends OpMode {
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
         backright.setDirection(DcMotorSimple.Direction.REVERSE);
+        armPivotMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 //
 //        winch = hardwareMap.get(DcMotorEx.class, "Winch");
 //        ArmMotor = hardwareMap.get(DcMotorEx.class, "ArmMotor");
@@ -79,6 +77,12 @@ public class RawBaconTeleop extends OpMode {
 
 
         Speed = 0.6;
+
+        armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+
 //
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //        winch.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -109,6 +113,22 @@ public class RawBaconTeleop extends OpMode {
      */
     @Override
     public void loop() {
+
+        //automatic mode
+        if (gamepad2.left_bumper) {
+            ArmMode = 0;
+            armPivotMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        }
+        //manual mode
+        if (gamepad2.right_bumper){
+            ArmMode = 1;
+            armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        }
+
+
         //if  (isrunning) {
 
         if (gamepad1.left_trigger == 1) {
@@ -117,11 +137,9 @@ public class RawBaconTeleop extends OpMode {
             Speed = 0.6;
         }
 
-        int ArmMotorPosition = 0;
-        int PivotMotorPostion = 0;
 
         double Pad2LeftStickY = gamepad2.left_stick_y;
-        double Pad2RightStickY = gamepad2.right_stick_y;
+        double Pad2RightStickY = -gamepad2.right_stick_y;
         double LeftStickY = gamepad1.left_stick_y;
         double LeftStickX = -gamepad1.left_stick_x;
         double RightStickX = -gamepad1.right_stick_x;
@@ -148,33 +166,88 @@ public class RawBaconTeleop extends OpMode {
             rightIntake.setPower(0);
         }
 
+        if (ArmMode == 0){
+
+
+           //artemis was not here
+            // yes i was
+            //nuh uh
+
+            if (gamepad2.left_stick_y != 0)
+                armMotor.setPower(gamepad2.left_stick_y / 2);
+            else
+                armMotor.setPower(0.1);
+
+
+            if (gamepad2.a){
+                armPivotMotor.setTargetPosition(PivotTargetPostionDown);
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            }
+
+            if (gamepad2.y){
+                armPivotMotor.setTargetPosition(PivotTargetPostionUp);
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            }
+
+
+
+        }
+
+
+
+
+        if (ArmMode == 1) {
+
+            if (Pad2RightStickY > 0) {
+                armPivotMotor.setPower(Pad2RightStickY / 2);
+            }
+
+            if (Pad2RightStickY <= 0) {
+
+                if (gamepad2.dpad_down) {
+                    armPivotMotor.setPower(Pad2RightStickY * 0.15);
+
+                } else
+                    armPivotMotor.setPower(0.15 + (Pad2RightStickY * 0.13));
+
+            }
+
+            if (gamepad2.left_stick_y != 0)
+                armMotor.setPower(gamepad2.left_stick_y / 2);
+            else
+                armMotor.setPower(0.1);
+
+        }
+
+
 
         ArmMotorPosition = armMotor.getCurrentPosition();
         PivotMotorPostion = armPivotMotor.getCurrentPosition();
 
 
-        //limits the range of the pivot motor
-        if (PivotMotorPostion >= 100) {
 
-            if (Pad2RightStickY < 0)
-                armPivotMotor.setPower(Pad2RightStickY / 2);
-        }
-        else if  (PivotMotorPostion < 20) {
-
-            if (Pad2RightStickY > 0)
-                armPivotMotor.setPower(Pad2RightStickY / 2);
-        }
-        else armPivotMotor.setPower(Pad2RightStickY / 2);
-
-        //runs arm motor if pivot is up
-        if (PivotMotorPostion >= 70){
-
-            armMotor.setPower(Pad2LeftStickY / 2);
-        }
 
         telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
+
         telemetry.addData("PivotMotorPostion: ", PivotMotorPostion);
+
+        telemetry.addData("Arm Mode: ", ArmMode);
+
         telemetry.update();
+
+
+
+//        ArmMotorPosition = armMotor.getCurrentPosition();
+//
+//        PivotMotorPostion = armPivotMotor.getCurrentPosition();
+//
+//        telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
+//        telemetry.addData("PivotMotorPostion: ", PivotMotorPostion);
+//        telemetry.update();
 
 //        if(gamepad2.left_trigger == 1){
 //
