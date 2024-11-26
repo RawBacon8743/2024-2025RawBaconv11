@@ -76,7 +76,7 @@ public class RawBaconTeleop extends OpMode {
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 
-        Speed = 0.6;
+        Speed = 0.7;
 
         armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -132,9 +132,9 @@ public class RawBaconTeleop extends OpMode {
         //if  (isrunning) {
 
         if (gamepad1.left_trigger == 1) {
-            Speed = 0.2;
+            Speed = 0.3;
         } else if (gamepad1.left_trigger == 0) {
-            Speed = 0.6;
+            Speed = 0.7;
         }
 
 
@@ -203,16 +203,16 @@ public class RawBaconTeleop extends OpMode {
         if (ArmMode == 1) {
 
             if (Pad2RightStickY > 0) {
-                armPivotMotor.setPower(Pad2RightStickY / 2);
+                armPivotMotor.setPower(Pad2RightStickY / 1.75);
             }
 
             if (Pad2RightStickY <= 0) {
 
                 if (gamepad2.dpad_down) {
-                    armPivotMotor.setPower(Pad2RightStickY * 0.15);
+                    armPivotMotor.setPower(0.1 + Pad2RightStickY * 0.15);
 
                 } else
-                    armPivotMotor.setPower(0.15 + (Pad2RightStickY * 0.13));
+                    armPivotMotor.setPower(0.15 + (Pad2RightStickY * 0.14));
 
             }
 
