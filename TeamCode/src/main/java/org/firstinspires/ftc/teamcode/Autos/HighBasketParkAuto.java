@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -35,9 +36,10 @@ public class HighBasketParkAuto extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    DcMotor armMotor;
     DcMotor armPivotMotor;
-//    Servo droneLauncher;
-//    Servo GrabberPivot;
+    CRServo leftIntake;
+    CRServo rightIntake;
 
     OdometryGlobalCoordinatePosition globalPositionUpdate;
 
@@ -63,6 +65,28 @@ public class HighBasketParkAuto extends LinearOpMode {
 //
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //    }
+
+    public void runIntake(String direction, int duration) {
+
+        if (direction == "OUT") {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        } else if (direction == "IN") {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
@@ -75,6 +99,10 @@ public class HighBasketParkAuto extends LinearOpMode {
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
         armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
+        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
+        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
+        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
+
 
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
@@ -138,24 +166,46 @@ public class HighBasketParkAuto extends LinearOpMode {
 
         //move to high basket
 
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+//
+//        //put into high basket
+//
+//        armPivotMotor.setTargetPosition(1100);
+//
+//        armMotor.setTargetPosition(5);
+//
+//        //move to observation zone
+//
+//        sleep(3000);
+//
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(-16 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(72 *COUNTS_PER_INCH, -4 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
 
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+//        goToPosition(-12 *COUNTS_PER_INCH, 18 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+//        armPivotMotor.setTargetPosition(1200);
+//        armMotor.setTargetPosition(-1800);
+//        runIntake("OUT", 2000);
+//        armMotor.setTargetPosition(0);
+//        armPivotMotor.setTargetPosition(10);
+//        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //long move 1
+//        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 10 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //long move 2
+//        goToPosition(96 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //park
+//        goToPosition(96 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
-        //put into high basket
-
-        //move to observation zone
-
-        sleep(3000);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(72 *COUNTS_PER_INCH, -4 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
+        runIntake("IN", 2000);
+        sleep(1000);
+        runIntake("OUT", 2000);
 
 //        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
 //        sleep(500);
