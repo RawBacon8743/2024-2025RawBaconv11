@@ -37,8 +37,8 @@ public class RawBaconTeleop extends OpMode {
     Double Speed;
     Double Velocity;
 
-    int PivotTargetPostionUp = 10;
-    int PivotTargetPostionDown = 1;
+    int PivotTargetPostionUp = 1300;
+    int PivotTargetPostionDown = 30;
     int ArmMotorPosition = 0;
     int PivotMotorPostion = 0;
     //0 is automatic mode 1 is manual mode
@@ -181,14 +181,14 @@ public class RawBaconTeleop extends OpMode {
 
             if (gamepad2.a){
                 armPivotMotor.setTargetPosition(PivotTargetPostionDown);
-                armPivotMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
             }
 
             if (gamepad2.y){
                 armPivotMotor.setTargetPosition(PivotTargetPostionUp);
-                armPivotMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
             }
@@ -211,8 +211,10 @@ public class RawBaconTeleop extends OpMode {
                 if (gamepad2.dpad_down) {
                     armPivotMotor.setPower(0.1 + Pad2RightStickY * 0.15);
 
-                } else
-                    armPivotMotor.setPower(0.15 + (Pad2RightStickY * 0.14));
+                } else if (PivotMotorPostion < 500)
+                    armPivotMotor.setPower(0.14 + (Pad2RightStickY * 0.14));
+                        else
+                            armPivotMotor.setPower((0.15 * Math.sin(((Math.PI * PivotMotorPostion -500) / 2500) + (Math.PI/2)) + (Pad2RightStickY * 0.14)));
 
             }
 
