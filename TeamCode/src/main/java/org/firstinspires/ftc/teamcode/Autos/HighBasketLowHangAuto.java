@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -36,6 +37,8 @@ public class HighBasketLowHangAuto extends LinearOpMode {
     DcMotor backleft;
     DcMotor backright;
     DcMotor armPivotMotor;
+    CRServo leftIntake;
+    CRServo rightIntake;
 //    Servo droneLauncher;
 //    Servo GrabberPivot;
 
@@ -63,6 +66,30 @@ public class HighBasketLowHangAuto extends LinearOpMode {
 //
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //    }
+
+
+
+
+    public void runIntake(String direction, int duration) {
+
+        if (direction == "OUT") {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        } else if (direction == "IN") {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+    }
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
@@ -75,6 +102,9 @@ public class HighBasketLowHangAuto extends LinearOpMode {
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
         armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
+        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
+        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
+
 
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
