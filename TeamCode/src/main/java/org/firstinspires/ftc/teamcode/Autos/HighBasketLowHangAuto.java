@@ -36,6 +36,8 @@ public class HighBasketLowHangAuto extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    DcMotor armMotor;
+
     DcMotor armPivotMotor;
     CRServo leftIntake;
     CRServo rightIntake;
@@ -164,25 +166,89 @@ public class HighBasketLowHangAuto extends LinearOpMode {
 
         //LeftRed
 //        sleep(1000);
+        armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        armPivotMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //move to high basket
+        goToPosition(-10 *COUNTS_PER_INCH, 20 * COUNTS_PER_INCH,0.5,-125,2.2 * COUNTS_PER_INCH);
 
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
 
         //put into high basket
 
         //move to submersible
+        armMotor.setPower(0.2);
+        armPivotMotor.setTargetPosition(1350);
+        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPivotMotor.setPower(0.3);
+        sleep(4000);
+        //move to high basket
+        goToPosition(-22 *COUNTS_PER_INCH, 8 * COUNTS_PER_INCH,0.5,-125,0.2 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(-1600);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(4000);
+        runIntake("OUT", 1500);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(4000);
+        goToPosition(-12 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
+        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
+        goToPosition(12 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,90,2 * COUNTS_PER_INCH);
+        armPivotMotor.setTargetPosition(0);
+        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPivotMotor.setPower(0.3);
+        sleep(30000);
 
+        sleep(3000);
+        //move to obserbation
         sleep(3000);
 
         goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
 
-        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-16 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
 
-        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+
+        goToPosition(72 *COUNTS_PER_INCH, -4 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+
+        goToPosition(-12 *COUNTS_PER_INCH, 18 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+
+        armPivotMotor.setTargetPosition(1200);
+
+        armMotor.setTargetPosition(-1800);
+
+        runIntake("OUT", 2000);
+
+        sleep(30000);
+
+        armMotor.setTargetPosition(0);
+
+        armPivotMotor.setTargetPosition(10);
+
+        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+        sleep(25);
+        //long move 1
+        goToPosition(-3*COUNTS_PER_INCH, 72*COUNTS_PER_INCH,.5, 0,.5*COUNTS_PER_INCH);
+        goToPosition(-3*COUNTS_PER_INCH, 72*COUNTS_PER_INCH,.5,90,.5*COUNTS_PER_INCH);
+        goToPosition(6*COUNTS_PER_INCH, 72*COUNTS_PER_INCH,.5,0,.5*COUNTS_PER_INCH);
+        armMotor.setPower(0.3);
+        armMotor.setTargetPosition(-1000);
+
+
+
+
+
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,90,0.5 * COUNTS_PER_INCH);
 
 
 //        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
