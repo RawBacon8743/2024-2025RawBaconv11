@@ -104,6 +104,7 @@ public class HighBasketLowHangAuto extends LinearOpMode {
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
         armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
+        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         leftIntake = hardwareMap.get(CRServo.class, "leftintake");
         rightIntake = hardwareMap.get(CRServo.class, "rightintake");
 
@@ -154,7 +155,7 @@ public class HighBasketLowHangAuto extends LinearOpMode {
         //goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, -180, 0.5*COUNTS_PER_INCH);
         //goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, 180, 0.5*COUNTS_PER_INCH);
 
-       /* goToPosition(0*COUNTS_PER_INCH, 100*COUNTS_PER_INCH, 0.5, 0, 0.5*COUNTS_PER_INCH);
+       /*goToPosition(0*COUNTS_PER_INCH, 100*COUNTS_PER_INCH, 0.5, 0, 0.5*COUNTS_PER_INCH);
 
         goToPosition(0*COUNTS_PER_INCH, 48*COUNTS_PER_INCH, 0.5, 0, 0.5*COUNTS_PER_INCH);
         goToPosition(24*COUNTS_PER_INCH, 48*COUNTS_PER_INCH, 0.5, 0, 0.5*COUNTS_PER_INCH);
@@ -238,7 +239,7 @@ public class HighBasketLowHangAuto extends LinearOpMode {
         goToPosition(-3*COUNTS_PER_INCH, 72*COUNTS_PER_INCH,.5,90,.5*COUNTS_PER_INCH);
         goToPosition(6*COUNTS_PER_INCH, 72*COUNTS_PER_INCH,.5,0,.5*COUNTS_PER_INCH);
         armMotor.setPower(0.3);
-        armMotor.setTargetPosition(-1000);
+        armMotor.setTargetPosition(-600);
 
 
 
