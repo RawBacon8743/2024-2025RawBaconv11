@@ -37,7 +37,7 @@ public class RawBaconTeleopB extends OpMode {
     Double Speed;
     Double Velocity;
 
-    int PivotTargetPositionUp = 1350;
+    int PivotTargetPositionUp = 1400;
     int PivotTargetPositionDown = 30;
     int ArmTargetPositionDown = 30;
     int ArmTargetPositionUp = -1700;
@@ -85,6 +85,8 @@ public class RawBaconTeleopB extends OpMode {
 
         armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
@@ -179,7 +181,7 @@ public class RawBaconTeleopB extends OpMode {
 
             if (gamepad2.left_stick_y != 0)
                 armMotor.setPower(gamepad2.left_stick_y / 2);
-            else
+            else if (!armMotor.isBusy())
                 armMotor.setPower(0.1);
 
 
@@ -202,13 +204,13 @@ public class RawBaconTeleopB extends OpMode {
                 if (gamepad2.dpad_down){
                     armMotor.setTargetPosition(ArmTargetPositionDown);
                     armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    armMotor.setPower(0.3);
+                    armMotor.setPower(0.5);
                 }
 
                 if (gamepad2.dpad_up){
                     armMotor.setTargetPosition(ArmTargetPositionUp);
                     armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    armMotor.setPower(0.3);
+                    armMotor.setPower(0.5);
                 }
 
             }
@@ -224,7 +226,7 @@ public class RawBaconTeleopB extends OpMode {
             if (Pad2RightStickY > 0) {
                 armPivotMotor.setPower(Pad2RightStickY / 1.75);
                 if (PivotMotorPostion < 500){
-                    armPivotMotor.setPower(Pad2RightStickY / 1.75 + ( 0.0005 * ArmMotorPosition));
+                    armPivotMotor.setPower(Pad2RightStickY / 1.75 - ( 0.0007 * ArmMotorPosition));
 
                 }
             }
