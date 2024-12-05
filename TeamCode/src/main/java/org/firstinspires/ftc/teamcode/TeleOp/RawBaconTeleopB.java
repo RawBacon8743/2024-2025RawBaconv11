@@ -40,13 +40,13 @@ public class RawBaconTeleopB extends OpMode {
     int PivotTargetPositionUp = 1400;
     int PivotTargetPositionDown = 30;
     int ArmTargetPositionDown = 30;
-    int ArmTargetPositionUp = -1700;
+    int ArmTargetPositionUp = -1600;
 
 
     int ArmMotorPosition = 0;
     int PivotMotorPostion = 0;
-    //0 is automatic mode 1 is manual mode
-    int ArmMode = 1;
+    boolean Targeting;
+
 
 
     //boolean isrunning;
@@ -86,7 +86,7 @@ public class RawBaconTeleopB extends OpMode {
         armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armPivotMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
@@ -121,18 +121,7 @@ public class RawBaconTeleopB extends OpMode {
     @Override
     public void loop() {
 
-        //automatic mode
-        if (gamepad2.left_bumper) {
-            ArmMode = 0;
-            armPivotMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        }
-        //manual mode
-        if (gamepad2.right_bumper){
-            ArmMode = 1;
-            armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        }
 
 
         //if  (isrunning) {
@@ -172,30 +161,33 @@ public class RawBaconTeleopB extends OpMode {
             rightIntake.setPower(0);
         }
 
-        if (ArmMode == 0){
 
 
            //artemis was not here
             // yes i was
             //nuh uh
 
-            if (gamepad2.left_stick_y != 0)
+            if (gamepad2.left_stick_y != 0) {
+                armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 armMotor.setPower(gamepad2.left_stick_y / 2);
+            }
             else if (!armMotor.isBusy())
                 armMotor.setPower(0.1);
 
 
             if (gamepad2.a){
+                Targeting = true;
+                armPivotMotor.setPower(0.3);
                 armPivotMotor.setTargetPosition(PivotTargetPositionDown);
                 armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armPivotMotor.setPower(0.3);
 
             }
 
             if (gamepad2.y){
+                Targeting = true;
+                armPivotMotor.setPower(0.3);
                 armPivotMotor.setTargetPosition(PivotTargetPositionUp);
                 armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                armPivotMotor.setPower(0.3);
 
             }
 
@@ -217,13 +209,10 @@ public class RawBaconTeleopB extends OpMode {
 
 
 
-        }
 
-
-
-        if (ArmMode == 1) {
 
             if (Pad2RightStickY > 0) {
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 armPivotMotor.setPower(Pad2RightStickY / 1.75);
                 if (PivotMotorPostion < 500){
                     armPivotMotor.setPower(Pad2RightStickY / 1.75 - ( 0.0007 * ArmMotorPosition));
@@ -231,24 +220,19 @@ public class RawBaconTeleopB extends OpMode {
                 }
             }
 
-            if (Pad2RightStickY <= 0) {
+            if (Pad2RightStickY <= 0 && !Targeting) {
 
-                if (gamepad2.dpad_down) {
-                    armPivotMotor.setPower(0.1 + Pad2RightStickY * 0.15);
-
-                } else if (PivotMotorPostion < 500)
+                armPivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                if (PivotMotorPostion < 500)
                     armPivotMotor.setPower(0.14 + (Pad2RightStickY * 0.14));
                         else
                             armPivotMotor.setPower((0.15 * Math.sin(((Math.PI * PivotMotorPostion -500) / 2500) + (Math.PI/2)) + (Pad2RightStickY * 0.14)));
 
             }
 
-            if (gamepad2.left_stick_y != 0)
-                armMotor.setPower(gamepad2.left_stick_y / 2);
-            else
-                armMotor.setPower(0.1);
+            if (Pad2RightStickY != 0)
+                Targeting = false;
 
-        }
 
 
 
@@ -262,7 +246,6 @@ public class RawBaconTeleopB extends OpMode {
 
         telemetry.addData("PivotMotorPostion: ", PivotMotorPostion);
 
-        telemetry.addData("Arm Mode: ", ArmMode);
 
         telemetry.update();
 

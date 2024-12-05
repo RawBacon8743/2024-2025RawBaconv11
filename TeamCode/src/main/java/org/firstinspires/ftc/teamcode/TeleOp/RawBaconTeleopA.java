@@ -23,7 +23,7 @@ public class RawBaconTeleopA extends OpMode {
     DcMotor backright;
     DcMotor armMotor;
 
-    Servo intake;
+    Servo claw;
 
 //    Servo leftIntake;
 
@@ -37,8 +37,9 @@ public class RawBaconTeleopA extends OpMode {
 //    Servo GrabberPivot;
     Double Speed;
     Double Velocity;
-    int ArmTargetPositionDown = 30;
-    int ArmTargetPositionUp = -1700;
+
+
+    int ArmTargetPosition = 220;
 
 
     int ArmMotorPosition = 0;
@@ -61,7 +62,7 @@ public class RawBaconTeleopA extends OpMode {
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
         armMotor = hardwareMap.get(DcMotor.class, "armmotor");
-        intake = hardwareMap.get(Servo.class, "intake");
+        claw = hardwareMap.get(Servo.class, "claw");
 
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -75,9 +76,13 @@ public class RawBaconTeleopA extends OpMode {
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 
-        Speed = 0.7;
+        Speed = 0.5;
 
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
@@ -127,9 +132,9 @@ public class RawBaconTeleopA extends OpMode {
         //if  (isrunning) {
 
         if (gamepad1.left_trigger == 1) {
-            Speed = 0.3;
+            Speed = 0.2;
         } else if (gamepad1.left_trigger == 0) {
-            Speed = 0.7;
+            Speed = 0.5;
         }
 
 
@@ -148,22 +153,26 @@ public class RawBaconTeleopA extends OpMode {
         // intake
         if (gamepad2.left_trigger == 1) {
 
+            claw.setPosition(0.35);
+
         } else if (gamepad2.right_trigger == 1) {
 
-        } else {
+            claw.setPosition(0);
+
         }
 
         if (ArmMode == 0){
-
 
             //artemis was not here
             // yes i was
             //nuh uh
 
             if (gamepad2.left_stick_y != 0)
-                armMotor.setPower(gamepad2.left_stick_y / 2);
-            else
-                armMotor.setPower(0.1);
+                armMotor.setPower(-gamepad2.left_stick_y / 2);
+            else armMotor.setPower(0);
+
+            //picking up is 220
+            //
 
 
             if (gamepad2.a){
@@ -183,25 +192,17 @@ public class RawBaconTeleopA extends OpMode {
 
         if (ArmMode == 1) {
 
-            if (Pad2RightStickY > 0) {
-                armMotor.setPower(Pad2RightStickY / 1.75);
-            }
-
-            if (Pad2RightStickY <= 0) {
-
-                if (gamepad2.dpad_down) {
-                    armMotor.setPower(0.1 + Pad2RightStickY * 0.15);
-
-                }
-
-            }
-
             if (gamepad2.left_stick_y != 0)
-                armMotor.setPower(gamepad2.left_stick_y / 2);
-            else
-                armMotor.setPower(0.1);
+                armMotor.setPower(-gamepad2.left_stick_y / 2);
+            else armMotor.setPower(0);
+
+
+
 
         }
+
+
+
 
 
 
