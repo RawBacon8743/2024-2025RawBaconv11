@@ -129,7 +129,7 @@ public class RawBaconTeleopB extends OpMode {
         if (gamepad1.left_trigger == 1) {
             Speed = 0.3;
         } else if (gamepad1.left_trigger == 0) {
-            Speed = 0.7;
+            Speed = 0.8;
         }
 
 
