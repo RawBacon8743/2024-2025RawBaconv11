@@ -16,8 +16,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "SimpleAuto")
-public class SimpleAuto extends LinearOpMode {
+@Autonomous(name = "SimpleAutoA")
+public class SimpleAutoA extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -36,7 +36,6 @@ public class SimpleAuto extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
-    DcMotor armPivotMotor;
 //    Servo droneLauncher;
 //    Servo GrabberPivot;
 
@@ -75,8 +74,6 @@ public class SimpleAuto extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
-        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
-
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 //        ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -134,37 +131,18 @@ public class SimpleAuto extends LinearOpMode {
         goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, 180, 0.5*COUNTS_PER_INCH); */
 
         //LeftRed
-//        sleep(1000);
+        sleep(1000);
 
 
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-3 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-
-          goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-          sleep(500);
-          goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-          sleep(2000);
+//        goToPosition(-18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        //drop specimen
+//        goToPosition(18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(36, 70, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(38, 0, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(44, 54, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(44, 6, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(60, 48, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(51, 3, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 //        sleep(5000);
 //        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -189,6 +167,13 @@ public class SimpleAuto extends LinearOpMode {
 //        frontright.setPower(0);
 //        backleft.setPower(0);
 //        backright.setPower(0);
+
+
+        sleep(5000);
+        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+
         //super cool coding
 
 //        goToPosition(48*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.2, 0, 0.5*COUNTS_PER_INCH);
