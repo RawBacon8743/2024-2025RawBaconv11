@@ -40,11 +40,14 @@ public class RawBaconTeleopA extends OpMode {
 
 
     int ArmTargetPosition = 220;
-
-
     int ArmMotorPosition = 0;
-    //0 is automatic mode 1 is manual mode
-    int ArmMode = 1;
+    boolean Targeting = false;
+
+    //true = forwards
+    //false = backwards
+    int BotDirection = 1;
+
+
 
 
     //boolean isrunning;
@@ -79,8 +82,6 @@ public class RawBaconTeleopA extends OpMode {
         Speed = 0.5;
 
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -117,15 +118,9 @@ public class RawBaconTeleopA extends OpMode {
     @Override
     public void loop() {
 
-        //automatic mode
-        if (gamepad2.left_bumper) {
-            ArmMode = 0;
-
-        }
-        //manual mode
-        if (gamepad2.right_bumper){
-            ArmMode = 1;
-
+        //switches bot direction
+        if(gamepad1.a){
+            BotDirection *= -1;
         }
 
 
@@ -145,10 +140,10 @@ public class RawBaconTeleopA extends OpMode {
         double RightStickX = -gamepad1.right_stick_x;
 
 
-        frontright.setPower((-RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed);
-        backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
-        frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed);
-        backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed);
+        frontright.setPower((-RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed * BotDirection);
+        backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed * BotDirection);
+        frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * Speed * BotDirection);
+        backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * Speed * BotDirection);
 
         // intake
         if (gamepad2.left_trigger == 1) {
@@ -161,45 +156,26 @@ public class RawBaconTeleopA extends OpMode {
 
         }
 
-        if (ArmMode == 0){
+
 
             //artemis was not here
             // yes i was
             //nuh uh
 
-            if (gamepad2.left_stick_y != 0)
+            if (gamepad2.left_stick_y != 0) {
+                armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 armMotor.setPower(-gamepad2.left_stick_y / 2);
-            else armMotor.setPower(0);
+            }
+            else if (!Targeting)
+                armMotor.setPower(0);
 
             //picking up is 220
-            //
-
 
             if (gamepad2.a){
-
+                Targeting = true;
+                armMotor.setPower(0.5);
+                armMotor.setTargetPosition(220);
             }
-
-            if (gamepad2.y){
-
-            }
-
-
-
-
-        }
-
-
-
-        if (ArmMode == 1) {
-
-            if (gamepad2.left_stick_y != 0)
-                armMotor.setPower(-gamepad2.left_stick_y / 2);
-            else armMotor.setPower(0);
-
-
-
-
-        }
 
 
 
@@ -209,11 +185,8 @@ public class RawBaconTeleopA extends OpMode {
         ArmMotorPosition = armMotor.getCurrentPosition();
 
 
-
-
         telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
 
-        telemetry.addData("Arm Mode: ", ArmMode);
 
         telemetry.update();
 
