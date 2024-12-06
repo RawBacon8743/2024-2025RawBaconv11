@@ -36,6 +36,7 @@ public class HighBasketLowHangAuto extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    DcMotor armMotor;
     DcMotor armPivotMotor;
     CRServo leftIntake;
     CRServo rightIntake;
@@ -101,6 +102,7 @@ public class HighBasketLowHangAuto extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
+        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
         leftIntake = hardwareMap.get(CRServo.class, "leftintake");
         rightIntake = hardwareMap.get(CRServo.class, "rightintake");
@@ -166,23 +168,48 @@ public class HighBasketLowHangAuto extends LinearOpMode {
 //        sleep(1000);
 
 
+        armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        armPivotMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        //move to middle
+
+        goToPosition(-10 *COUNTS_PER_INCH, 20 * COUNTS_PER_INCH,0.5,-125,2.2 * COUNTS_PER_INCH);
+
+        //pivot arm
+
+        armMotor.setPower(0.2);
+        armPivotMotor.setTargetPosition(1400);
+        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPivotMotor.setPower(0.3);
+        sleep(4000);
         //move to high basket
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
-
-        //put into high basket
-
-        //move to submersible
-
-        sleep(3000);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(6 *COUNTS_PER_INCH, 52 * COUNTS_PER_INCH,0.5,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(-22 *COUNTS_PER_INCH, 9 * COUNTS_PER_INCH,0.5,-125,0.2 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(-1600);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(4000);
+        runIntake("OUT", 1000);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(4000);
+        goToPosition(3 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.7,-125,2 * COUNTS_PER_INCH);
+        goToPosition(3 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.7,0,12 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,0,2 * COUNTS_PER_INCH);
+        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,90,12 * COUNTS_PER_INCH);
+        goToPosition(12 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,90,5 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(-800);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(1000);
+        armPivotMotor.setTargetPosition(0);
+        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPivotMotor.setPower(0.3);
+        sleep(30000);
 
 
 //        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);

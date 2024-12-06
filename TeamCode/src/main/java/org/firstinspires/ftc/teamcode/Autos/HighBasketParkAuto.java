@@ -176,65 +176,44 @@ public class HighBasketParkAuto extends LinearOpMode {
         //pivot arm
 
         armMotor.setPower(0.2);
-        armPivotMotor.setTargetPosition(1350);
+        armPivotMotor.setTargetPosition(1400);
         armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armPivotMotor.setPower(0.3);
         sleep(4000);
         //move to high basket
-        goToPosition(-22 *COUNTS_PER_INCH, 8 * COUNTS_PER_INCH,0.5,-125,0.2 * COUNTS_PER_INCH);
+        goToPosition(-22 *COUNTS_PER_INCH, 9 * COUNTS_PER_INCH,0.5,-125,0.2 * COUNTS_PER_INCH);
         armMotor.setTargetPosition(-1600);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.3);
         sleep(4000);
-        runIntake("OUT", 1500);
+        runIntake("OUT", 1000);
         armMotor.setTargetPosition(0);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.3);
         sleep(4000);
-        goToPosition(-12 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
-        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
-        goToPosition(12 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,90,2 * COUNTS_PER_INCH);
+
+        goToPosition(3 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,90,0.5 * COUNTS_PER_INCH);
+        armPivotMotor.setTargetPosition(0);
+        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armPivotMotor.setPower(0.3);
+        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,90,6 * COUNTS_PER_INCH);
+        goToPosition(72 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+
+
+
+        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,0,2 * COUNTS_PER_INCH);
+        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,90,2 * COUNTS_PER_INCH);
+        goToPosition(12 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.5,90,5 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(-400);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+        sleep(1000);
         armPivotMotor.setTargetPosition(0);
         armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armPivotMotor.setPower(0.3);
         sleep(30000);
 
-        //move to observation zone
 
-        sleep(3000);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(-16 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(72 *COUNTS_PER_INCH, -4 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-
-        goToPosition(-12 *COUNTS_PER_INCH, 18 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
-
-        armPivotMotor.setTargetPosition(1200);
-
-        armMotor.setTargetPosition(-1800);
-
-        runIntake("OUT", 2000);
-
-        sleep(30000);
-
-        armMotor.setTargetPosition(0);
-
-        armPivotMotor.setTargetPosition(10);
-
-        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(25);
-        //long move 1
-        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 10 * COUNTS_PER_INCH);
-        sleep(25);
-        //long move 2
-        goToPosition(96 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-        sleep(25);
-        //park
-        goToPosition(96 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 //        runIntake("IN", 2000);
 //        sleep(1000);
