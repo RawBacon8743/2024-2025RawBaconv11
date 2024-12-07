@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.util.odometry.OdometryGlobalCoordinatePosition;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -15,8 +16,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "ComplexAutoSlant")
-public class ComplexAutoSlant extends LinearOpMode {
+@Autonomous(name = "SimpleAutoA")
+public class SimpleAutoA extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -35,11 +36,10 @@ public class ComplexAutoSlant extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
-    DcMotor armPivotMotor;
 //    Servo droneLauncher;
 //    Servo GrabberPivot;
 
-    OdometryGlobalCoordinatePosition globalPositionUpdate;
+    org.firstinspires.ftc.teamcode.util.odometry.OdometryGlobalCoordinatePosition globalPositionUpdate;
 
     //CV webcam
     OpenCvWebcam webcam1 = null;
@@ -74,8 +74,6 @@ public class ComplexAutoSlant extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
-        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
-
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 //        ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -133,76 +131,18 @@ public class ComplexAutoSlant extends LinearOpMode {
         goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, 180, 0.5*COUNTS_PER_INCH); */
 
         //LeftRed
-//        sleep(1000);
+        sleep(1000);
 
 
-//        //move behind samples
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 0, 2 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //move directly behind first sample
-//        goToPosition(-5 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //push in front of net zone
-//        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //push into net zone
-//        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 5, 200, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //go back
-//        goToPosition(-3 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //get behind samples
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 180, 2 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //get behind second sample
-//        goToPosition(-13 * COUNTS_PER_INCH, 65 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //push into net zone
-//        goToPosition(-16 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 5, 200, 5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //back out
-//        goToPosition(-5 * COUNTS_PER_INCH, 20 * COUNTS_PER_INCH, 0.5, 200, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //get behind samples
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.8, 180, 2 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //get behind third sample
-//        goToPosition(-24 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //push into net zone
-//        goToPosition(-24 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //back out
-//        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //rotate
-//        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //long move 1
-//        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 10 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //long move 2
-//        goToPosition(72 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.8, 90, 0.5 * COUNTS_PER_INCH);
-//        sleep(25);
-//        //park
-//        goToPosition(72 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-
-        goToPosition(72 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-
-
-
-//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-//        sleep(500);
-//        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
-
+//        goToPosition(-18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        //drop specimen
+//        goToPosition(18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(36, 70, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(38, 0, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(44, 54, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(44, 6, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(60, 48, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        goToPosition(51, 3, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
 //        sleep(5000);
 //        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -227,6 +167,13 @@ public class ComplexAutoSlant extends LinearOpMode {
 //        frontright.setPower(0);
 //        backleft.setPower(0);
 //        backright.setPower(0);
+
+
+        sleep(5000);
+        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+
         //super cool coding
 
 //        goToPosition(48*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.2, 0, 0.5*COUNTS_PER_INCH);

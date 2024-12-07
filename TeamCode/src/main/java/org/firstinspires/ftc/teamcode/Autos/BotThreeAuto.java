@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode.Autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.odometry.OdometryGlobalCoordinatePosition;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -16,8 +17,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "SimpleAutoDelayed")
-public class SimpleAutoDelayed extends LinearOpMode {
+@Autonomous(name = "BotThreeAuto")
+public class BotThreeAuto extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -36,10 +37,12 @@ public class SimpleAutoDelayed extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
-//    Servo droneLauncher;
-//    Servo GrabberPivot;
+    DcMotor armMotor;
+    Servo claw;
+    CRServo leftIntake;
+    CRServo rightIntake;
 
-    org.firstinspires.ftc.teamcode.util.odometry.OdometryGlobalCoordinatePosition globalPositionUpdate;
+    OdometryGlobalCoordinatePosition globalPositionUpdate;
 
     //CV webcam
     OpenCvWebcam webcam1 = null;
@@ -63,6 +66,28 @@ public class SimpleAutoDelayed extends LinearOpMode {
 //
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //    }
+
+    public void runIntake(String direction, int duration) {
+
+        if (direction == "OUT") {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        } else if (direction == "IN") {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
@@ -74,6 +99,14 @@ public class SimpleAutoDelayed extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
+//        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
+        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
+        claw = hardwareMap.get(Servo.class, "claw");
+
+//        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
+//        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
+
+
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 //        ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -131,18 +164,121 @@ public class SimpleAutoDelayed extends LinearOpMode {
         goToPosition(0*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.5, 180, 0.5*COUNTS_PER_INCH); */
 
         //LeftRed
-        sleep(1000);
+//        sleep(1000);
+
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        claw.setDirection(Servo.Direction.FORWARD);
+        goToPosition(12 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setTargetPosition(1450);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.7);
+        goToPosition(12 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.2,0,1 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(1300);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
+        sleep(4000);
+        claw.setPosition(-0.5);
 
 
-//        goToPosition(-18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        //drop specimen
-//        goToPosition(18, 42, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(36, 70, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(38, 0, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(44, 54, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(44, 6, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(60, 48, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-//        goToPosition(51, 3, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+        sleep(30000);
+        claw.setPosition(-0.5);
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setTargetPosition(1500);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.7);
+
+
+
+//        armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//
+//        armPivotMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+//
+//
+//        //move to middle
+//
+//        goToPosition(-10 *COUNTS_PER_INCH, 20 * COUNTS_PER_INCH,0.5,-125,2.2 * COUNTS_PER_INCH);
+//
+//        //pivot arm
+//
+//        armMotor.setPower(0.2);
+//        armPivotMotor.setTargetPosition(1350);
+//        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        armPivotMotor.setPower(0.3);
+//        sleep(4000);
+//        //move to high basket
+//        goToPosition(-22 *COUNTS_PER_INCH, 8 * COUNTS_PER_INCH,0.5,-125,0.2 * COUNTS_PER_INCH);
+//        armMotor.setTargetPosition(-1600);
+//        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        armMotor.setPower(0.3);
+//        sleep(4000);
+//        runIntake("OUT", 1500);
+//        armMotor.setTargetPosition(0);
+//        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        armMotor.setPower(0.3);
+//        sleep(4000);
+//        goToPosition(-12 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
+//        goToPosition(0 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,0,2 * COUNTS_PER_INCH);
+//        goToPosition(12 *COUNTS_PER_INCH, 60 * COUNTS_PER_INCH,0.8,90,2 * COUNTS_PER_INCH);
+//        armPivotMotor.setTargetPosition(0);
+//        armPivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        armPivotMotor.setPower(0.3);
+//        sleep(30000);
+//
+//        //move to observation zone
+//
+//        sleep(3000);
+//
+//        goToPosition(-16 *COUNTS_PER_INCH, 14 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(-16 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(72 *COUNTS_PER_INCH, 24 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(72 *COUNTS_PER_INCH, -4 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+//
+//        goToPosition(-12 *COUNTS_PER_INCH, 18 * COUNTS_PER_INCH,0.5,-125,0.5 * COUNTS_PER_INCH);
+//
+//        armPivotMotor.setTargetPosition(1200);
+//
+//        armMotor.setTargetPosition(-1800);
+//
+//        runIntake("OUT", 2000);
+//
+//        sleep(30000);
+//
+//        armMotor.setTargetPosition(0);
+//
+//        armPivotMotor.setTargetPosition(10);
+//
+//        goToPosition(-3 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //long move 1
+//        goToPosition(48 * COUNTS_PER_INCH, 24 * COUNTS_PER_INCH, 0.5, 90, 10 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //long move 2
+//        goToPosition(96 * COUNTS_PER_INCH, 5 * COUNTS_PER_INCH, 0.5, 90, 0.5 * COUNTS_PER_INCH);
+//        sleep(25);
+//        //park
+//        goToPosition(96 * COUNTS_PER_INCH, -10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+
+//        runIntake("IN", 2000);
+//        sleep(1000);
+//        runIntake("OUT", 2000);
+
+//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 240, 0.5 * COUNTS_PER_INCH);
+//        sleep(500);
+//        goToPosition(-6 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        sleep(500);
+//        goToPosition(0 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        sleep(500);
+//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+//        sleep(500);
+//        goToPosition(-9 * COUNTS_PER_INCH, 60 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+//        sleep(500);
+//        goToPosition(-12 * COUNTS_PER_INCH, 10 * COUNTS_PER_INCH, 0.5, 180, 0.5 * COUNTS_PER_INCH);
+
 
 //        sleep(5000);
 //        frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -167,13 +303,6 @@ public class SimpleAutoDelayed extends LinearOpMode {
 //        frontright.setPower(0);
 //        backleft.setPower(0);
 //        backright.setPower(0);
-
-
-        sleep(5000);
-        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
-        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-
         //super cool coding
 
 //        goToPosition(48*COUNTS_PER_INCH, 0*COUNTS_PER_INCH, 0.2, 0, 0.5*COUNTS_PER_INCH);
@@ -432,8 +561,10 @@ public class SimpleAutoDelayed extends LinearOpMode {
             telemetry.addData("Vertical left encoder position", verticalLeft.getCurrentPosition());
             telemetry.addData("Vertical right encoder position", verticalRight.getCurrentPosition());
             telemetry.addData("horizontal encoder position", horizontal.getCurrentPosition());
+            telemetry.addData("Arm Position", armMotor.getCurrentPosition());
 
             telemetry.addData("Thread Active", positionThread.isAlive());
+            telemetry.addData("Claw Position", claw.getPosition());
             telemetry.update();
 
         }

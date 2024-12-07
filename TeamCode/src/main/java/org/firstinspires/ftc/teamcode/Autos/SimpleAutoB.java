@@ -16,8 +16,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "SimpleAuto")
-public class SimpleAuto extends LinearOpMode {
+@Autonomous(name = "SimpleAutoB")
+public class SimpleAutoB extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
