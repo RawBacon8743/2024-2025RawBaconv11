@@ -163,6 +163,7 @@ public class RawBaconTeleopA extends OpMode {
             //nuh uh
 
             if (gamepad2.left_stick_y != 0) {
+                Targeting = false;
                 armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 armMotor.setPower(-gamepad2.left_stick_y / 2);
             }
