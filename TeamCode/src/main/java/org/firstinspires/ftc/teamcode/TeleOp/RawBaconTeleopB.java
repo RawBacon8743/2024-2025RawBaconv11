@@ -122,6 +122,10 @@ public class RawBaconTeleopB extends OpMode {
     public void loop() {
 
 
+        if (gamepad2.right_bumper && gamepad2.left_bumper){
+            armPivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
 
 
         //if  (isrunning) {
