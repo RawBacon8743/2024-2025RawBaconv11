@@ -17,8 +17,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "BotThreeAuto")
-public class BotThreeAuto extends LinearOpMode {
+@Autonomous(name = "BotThreeAutoPark")
+public class BotThreeAutoPark extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -170,15 +170,20 @@ public class BotThreeAuto extends LinearOpMode {
         claw.setDirection(Servo.Direction.FORWARD);
         goToPosition(12 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        armMotor.setTargetPosition(1450);
+        armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.7);
-        goToPosition(12 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.2,0,1 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(1300);
+        goToPosition(12 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.35,0,1 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(1200);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.9);
+        sleep(2000);
+        claw.setPosition(-0.5);
+        sleep(1000);
+        armMotor.setTargetPosition(0);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
-        sleep(4000);
-        claw.setPosition(-0.5);
+        goToPosition(-36 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
 
 
         sleep(30000);
