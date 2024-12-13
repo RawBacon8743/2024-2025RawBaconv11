@@ -40,6 +40,7 @@ public class RawBaconTeleopA extends OpMode {
     Double Velocity;
 
     int ArmMotorPosition = 0;
+    int Direction = 1;
     boolean Targeting = false;
 
 
@@ -63,6 +64,9 @@ public class RawBaconTeleopA extends OpMode {
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
         backright.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontleft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backleft.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
 //
 //        winch = hardwareMap.get(DcMotorEx.class, "Winch");
@@ -115,6 +119,14 @@ public class RawBaconTeleopA extends OpMode {
             armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
+        if (gamepad1.left_bumper){
+            Direction = 1;
+        }
+
+        if (gamepad1.right_bumper){
+            Direction = -1;
+        }
+
 
         //switches bot direction
 
@@ -129,8 +141,8 @@ public class RawBaconTeleopA extends OpMode {
 
         double Pad2LeftStickY = gamepad2.left_stick_y;
         double Pad2RightStickY = -gamepad2.right_stick_y;
-        double LeftStickY = gamepad1.left_stick_y;
-        double LeftStickX = -gamepad1.left_stick_x;
+        double LeftStickY = gamepad1.left_stick_y * Direction;
+        double LeftStickX = -gamepad1.left_stick_x * Direction;
         double RightStickX = -gamepad1.right_stick_x;
 
 
