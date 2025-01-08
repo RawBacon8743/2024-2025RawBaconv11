@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.odometry.OdometryGlobalCoordinatePosition;
 
@@ -36,6 +37,7 @@ public class SimpleAutoA extends LinearOpMode {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    Servo test;
 //    Servo droneLauncher;
 //    Servo GrabberPivot;
 
@@ -74,6 +76,7 @@ public class SimpleAutoA extends LinearOpMode {
         frontright = hardwareMap.get(DcMotor.class, "frontright");
         backleft = hardwareMap.get(DcMotor.class, "backleft");
         backright = hardwareMap.get(DcMotor.class, "backright");
+        test = hardwareMap.get(Servo.class, "test");
 //        GrabberPivot = hardwareMap.get(Servo.class, "grabberPivot");
 
 //        ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -169,7 +172,7 @@ public class SimpleAutoA extends LinearOpMode {
 //        backright.setPower(0);
 
 
-        sleep(5000);
+        sleep(10000);
         goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
         sleep(500);
         goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);

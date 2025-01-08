@@ -166,24 +166,77 @@ public class BotThreeAutoPark extends LinearOpMode {
         //LeftRed
 //        sleep(1000);
 
+
+        //initialization
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         claw.setDirection(Servo.Direction.FORWARD);
-        goToPosition(12 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        //move to center
+        goToPosition(6 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        //raise arm and move to chambers
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.7);
-        goToPosition(12 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.35,0,1 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(1200);
+        goToPosition(6 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.35,0,1 * COUNTS_PER_INCH);
+        //set onto chamber and open claw
+        armMotor.setTargetPosition(1100);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.9);
-        sleep(2000);
+        sleep(1000);
         claw.setPosition(-0.5);
+        sleep(500);
+        //lower arm
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //move in front of observation zone
+        goToPosition(12 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
         sleep(1000);
         armMotor.setTargetPosition(0);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
-        goToPosition(-36 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
+        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        //turn around
+        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
+        sleep(1500);
+        //back into specimen. (human player should begin adjusting the position)
+        armMotor.setTargetPosition(200);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
+        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
+        goToPosition(-36 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.35,180,0.5 * COUNTS_PER_INCH);
+        sleep(1000);
+        goToPosition(-36 *COUNTS_PER_INCH, 10 * COUNTS_PER_INCH,0.35,180,6 * COUNTS_PER_INCH);
+        //grab specimen, raise arm, and move to chambers
+        claw.setPosition(0.35);
+        sleep(1000);
+        armMotor.setTargetPosition(500);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.7);
+        goToPosition(8 *COUNTS_PER_INCH, -16 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
+        goToPosition(8 *COUNTS_PER_INCH, -16 * COUNTS_PER_INCH,0.5,0,12 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(1500);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.7);
+        goToPosition(12 *COUNTS_PER_INCH, -35 * COUNTS_PER_INCH,0.7,0,6 * COUNTS_PER_INCH);
+        sleep(1000);
+        //set sample onto chamber and open
+        armMotor.setTargetPosition(1100);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.9);
+        sleep(500);
+        claw.setPosition(-0.5);
+        sleep(500);
+        //lower arm and go to observation zone
+        armMotor.setTargetPosition(30);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.5);
+        goToPosition(0 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
+        goToPosition(-36 *COUNTS_PER_INCH, 7 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
 
 
         sleep(30000);
