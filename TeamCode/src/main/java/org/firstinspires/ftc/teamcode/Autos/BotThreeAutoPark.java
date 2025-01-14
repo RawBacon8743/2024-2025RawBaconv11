@@ -39,8 +39,8 @@ public class BotThreeAutoPark extends LinearOpMode {
     DcMotor backright;
     DcMotor armMotor;
     Servo claw;
-    CRServo leftIntake;
-    CRServo rightIntake;
+//    CRServo leftIntake;
+//    CRServo rightIntake;
 
     OdometryGlobalCoordinatePosition globalPositionUpdate;
 
@@ -67,26 +67,26 @@ public class BotThreeAutoPark extends LinearOpMode {
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //    }
 
-    public void runIntake(String direction, int duration) {
-
-        if (direction == "OUT") {
-            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-            leftIntake.setPower(0.5);
-            rightIntake.setPower(0.5);
-            sleep(duration);
-            leftIntake.setPower(0);
-            rightIntake.setPower(0);
-        } else if (direction == "IN") {
-            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-            leftIntake.setPower(0.5);
-            rightIntake.setPower(0.5);
-            sleep(duration);
-            leftIntake.setPower(0);
-            rightIntake.setPower(0);
-        }
-    }
+//    public void runIntake(String direction, int duration) {
+//
+//        if (direction == "OUT") {
+//            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+//            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+//            leftIntake.setPower(0.5);
+//            rightIntake.setPower(0.5);
+//            sleep(duration);
+//            leftIntake.setPower(0);
+//            rightIntake.setPower(0);
+//        } else if (direction == "IN") {
+//            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+//            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+//            leftIntake.setPower(0.5);
+//            rightIntake.setPower(0.5);
+//            sleep(duration);
+//            leftIntake.setPower(0);
+//            rightIntake.setPower(0);
+//        }
+//    }
 
     @Override
     public void runOpMode() throws InterruptedException {
