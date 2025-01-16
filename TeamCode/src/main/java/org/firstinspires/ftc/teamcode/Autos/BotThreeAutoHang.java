@@ -166,33 +166,32 @@ public class BotThreeAutoHang extends LinearOpMode {
         //LeftRed
 //        sleep(1000);
 
+
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         claw.setDirection(Servo.Direction.FORWARD);
-        goToPosition(-12 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.7);
-        goToPosition(-12 *COUNTS_PER_INCH, -27 * COUNTS_PER_INCH,0.35,0,1 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(1200);
+        armMotor.setPower(0.5);
+        goToPosition(-30 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-30 *COUNTS_PER_INCH, -35 * COUNTS_PER_INCH,0.7,0,12 * COUNTS_PER_INCH);
+        sleep(2000);
+        armMotor.setTargetPosition(1100);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.9);
-        sleep(2000);
-        claw.setPosition(-0.5);
         sleep(1000);
+        claw.setPosition(-0.5);
+        sleep(500);
+        goToPosition(-6 *COUNTS_PER_INCH, -20 * COUNTS_PER_INCH,0.35,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(-24 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.7,90,6 * COUNTS_PER_INCH);
+        sleep(2000);
         armMotor.setTargetPosition(0);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
-        goToPosition(24 *COUNTS_PER_INCH, -3 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-        goToPosition(24 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-        goToPosition(24 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.5,90,12 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(1500);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
-        goToPosition(24 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.5,90,0.5 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
+        armMotor.setPower(0);
+
 
         sleep(30000);
         claw.setPosition(-0.5);
