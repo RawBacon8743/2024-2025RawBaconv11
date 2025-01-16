@@ -26,7 +26,12 @@ public class RawBaconTeleopA extends OpMode {
     DcMotor armMotor;
     Servo claw;
     DcMotor ascentMotor;
+    Servo clawRotation;
+    Servo leftClaw;
+    Servo rightClaw;
+
     int AscentMotorPosition = 0;
+    double CRServoPosition = 0.5;
 
 
 //    Servo leftIntake;
@@ -64,7 +69,9 @@ public class RawBaconTeleopA extends OpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         claw = hardwareMap.get(Servo.class, "claw");
         ascentMotor = hardwareMap.get(DcMotor.class, "ascentmotor");
-
+        clawRotation = hardwareMap.get(Servo.class, "clawrotation");
+        leftClaw = hardwareMap.get(Servo.class, "leftclaw");
+        rightClaw = hardwareMap.get(Servo.class, "rightclaw");
 
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -157,21 +164,39 @@ public class RawBaconTeleopA extends OpMode {
         backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
 
         // intake
-        //close
+        //open
         if (gamepad2.left_bumper){
+            claw.setPosition(0);
+        }
+        //close
+        else {
             claw.setPosition(0.35);
         }
-        //open
-        else if (gamepad2.right_bumper){
 
-            claw.setPosition(0);
+        leftClaw.setDirection(Servo.Direction.FORWARD);
+        rightClaw.setDirection(Servo.Direction.REVERSE);
 
+
+        if (gamepad2.right_bumper){
+            leftClaw.setPosition(0);
+            rightClaw.setPosition(0.115);
+        } else {
+            leftClaw.setPosition(0.2);
+            rightClaw.setPosition(0.33);
+        }
+
+        clawRotation.setDirection(Servo.Direction.FORWARD);
+        clawRotation.setPosition(CRServoPosition);
+
+        if (gamepad2.dpad_left && CRServoPosition > 0.1){
+            CRServoPosition += 0.003;
+        }
+        if (gamepad2.dpad_right && CRServoPosition < 0.75){
+            CRServoPosition -= 0.003;
         }
 
 
-
-
-            //artemis was not here
+        //artemis was not here
             // yes i was
             //nuh uh
 
@@ -205,13 +230,13 @@ public class RawBaconTeleopA extends OpMode {
             ascentMotor.setPower(gamepad2.right_stick_y);
         }
 
-        if (gamepad2.dpad_down){
+        if (gamepad1.dpad_down){
             ascentMotor.setPower(1);
             ascentMotor.setTargetPosition(50);
             ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        if (gamepad2.dpad_up){
+        if (gamepad1.dpad_up){
             ascentMotor.setPower(1);
             ascentMotor.setTargetPosition(3400);
             ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -224,6 +249,9 @@ public class RawBaconTeleopA extends OpMode {
 
         telemetry.addData("AscentMotorPosition: ", AscentMotorPosition);
         telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
+        telemetry.addData("LeftClaw: ", leftClaw.getPosition());
+        telemetry.addData("RightClaw: ", rightClaw.getPosition());
+
 
 
         telemetry.update();

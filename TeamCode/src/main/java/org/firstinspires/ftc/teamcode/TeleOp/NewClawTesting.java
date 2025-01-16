@@ -25,7 +25,7 @@ public class NewClawTesting extends OpMode {
     DcMotor backright;
 //    DcMotor armMotor;
     Servo claw;
-    CRServo clawRotation;
+    Servo clawRotation;
     Servo leftClaw;
     Servo rightClaw;
 
@@ -45,6 +45,7 @@ public class NewClawTesting extends OpMode {
     int ArmMotorPosition = 0;
     int Direction = 1;
     boolean Targeting = false;
+    double CRServoPosition = 0.5;
 
 
     //boolean isrunning;
@@ -63,7 +64,7 @@ public class NewClawTesting extends OpMode {
         backright = hardwareMap.get(DcMotor.class, "backright");
 //        armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         claw = hardwareMap.get(Servo.class, "claw");
-        clawRotation = hardwareMap.get(CRServo.class, "clawrotation");
+        clawRotation = hardwareMap.get(Servo.class, "clawrotation");
         leftClaw = hardwareMap.get(Servo.class, "leftclaw");
         rightClaw = hardwareMap.get(Servo.class, "rightclaw");
 
@@ -177,8 +178,15 @@ public class NewClawTesting extends OpMode {
         }
 
 
-        clawRotation.setDirection(DcMotorSimple.Direction.FORWARD);
-        clawRotation.setPower(gamepad2.right_stick_x/2);
+        clawRotation.setDirection(Servo.Direction.FORWARD);
+        clawRotation.setPosition(CRServoPosition);
+
+        if (gamepad2.dpad_left && CRServoPosition > 0.1){
+            CRServoPosition += 0.003;
+        }
+        if (gamepad2.dpad_right && CRServoPosition < 0.75){
+            CRServoPosition -= 0.003;
+        }
 
 
         //artemis was not here
@@ -218,7 +226,7 @@ public class NewClawTesting extends OpMode {
         //telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
         telemetry.addData("LeftClaw: ", leftClaw.getPosition());
         telemetry.addData("RightClaw: ", rightClaw.getPosition());
-        telemetry.addData("ClawRotationPower: ", clawRotation.getPower());
+       // telemetry.addData("ClawRotationPower: ", clawRotation.getPower());
 
         telemetry.update();
 
