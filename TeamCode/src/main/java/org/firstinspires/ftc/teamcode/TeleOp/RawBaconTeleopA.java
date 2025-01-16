@@ -25,6 +25,9 @@ public class RawBaconTeleopA extends OpMode {
     DcMotor backright;
     DcMotor armMotor;
     Servo claw;
+    DcMotor ascentMotor;
+    int AscentMotorPosition = 0;
+
 
 //    Servo leftIntake;
 
@@ -60,6 +63,8 @@ public class RawBaconTeleopA extends OpMode {
         backright = hardwareMap.get(DcMotor.class, "backright");
         armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         claw = hardwareMap.get(Servo.class, "claw");
+        ascentMotor = hardwareMap.get(DcMotor.class, "ascentmotor");
+
 
 
         frontright.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -152,12 +157,14 @@ public class RawBaconTeleopA extends OpMode {
         backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
 
         // intake
+        //close
         if (gamepad2.left_bumper){
-            claw.setPosition(0);
+            claw.setPosition(0.35);
         }
+        //open
         else if (gamepad2.right_bumper){
 
-            claw.setPosition(0.35);
+            claw.setPosition(0);
 
         }
 
@@ -193,11 +200,29 @@ public class RawBaconTeleopA extends OpMode {
         }
 
 
+        if (gamepad2.right_stick_y != 0) {
+            ascentMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            ascentMotor.setPower(gamepad2.right_stick_y);
+        }
+
+        if (gamepad2.dpad_down){
+            ascentMotor.setPower(1);
+            ascentMotor.setTargetPosition(50);
+            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
+        if (gamepad2.dpad_up){
+            ascentMotor.setPower(1);
+            ascentMotor.setTargetPosition(3400);
+            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+
 
 
         ArmMotorPosition = armMotor.getCurrentPosition();
+        AscentMotorPosition = ascentMotor.getCurrentPosition();
 
-
+        telemetry.addData("AscentMotorPosition: ", AscentMotorPosition);
         telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
 
 
