@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.video.FarnebackOpticalFlow;
 
 @TeleOp(name="RawBaconTeleopA")
@@ -146,10 +147,10 @@ public class RawBaconTeleopA extends OpMode {
             armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-        if (gamepad1.left_bumper)
+        if (gamepad2.left_bumper)
             Mode = 0;
 
-        if (gamepad1.right_bumper)
+        if (gamepad2.right_bumper)
             Mode = 1;
 
 
@@ -169,40 +170,41 @@ public class RawBaconTeleopA extends OpMode {
         double RightStickX = -gamepad1.right_stick_x;
 
 
-        if (Mode == 0) {
+
             frontright.setPower((-RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
             backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
             frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
             backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
 
-            samplePivotMotor.setTargetPosition(PivotPosition);
-            sampleExtensionMotor.setTargetPosition(ExtensionPosition);
-            sampleExtensionMotor.setPower(0.3);
-            samplePivotMotor.setPower(0.3);
+            if (Mode == 0) {
+                samplePivotMotor.setTargetPosition(PivotPosition);
+                sampleExtensionMotor.setTargetPosition(ExtensionPosition);
+                sampleExtensionMotor.setPower(0.3);
+                samplePivotMotor.setPower(0.3);
+            }
 
-        }
 
-        // intake
-        //open
-        if (gamepad2.left_bumper){
-            claw.setPosition(0);
-        }
-        //close
-        else {
-            claw.setPosition(0.35);
+
+        if (gamepad2.right_trigger == 1){
+            if (Mode == 0) {
+                claw.setPosition(0);
+            } else {
+                leftClaw.setPosition(0.6);
+                rightClaw.setPosition(0.6);
+            }
+        } else {
+            if (Mode == 0) {
+                claw.setPosition(0.35);
+            } else {
+                leftClaw.setPosition(0.75);
+                rightClaw.setPosition(0.8);
+            }
         }
 
         leftClaw.setDirection(Servo.Direction.FORWARD);
         rightClaw.setDirection(Servo.Direction.REVERSE);
 
 
-        if (gamepad2.right_bumper){
-            leftClaw.setPosition(0.6);
-            rightClaw.setPosition(0.6);
-        } else {
-            leftClaw.setPosition(0.75);
-            rightClaw.setPosition(0.8);
-        }
 
         clawRotation.setDirection(Servo.Direction.FORWARD);
         clawRotation.setPosition(CRServoPosition);
@@ -214,10 +216,22 @@ public class RawBaconTeleopA extends OpMode {
 //            CRServoPosition -= 0.003;
 //        }
 
-        if (clawRotation.getPosition() > 0.99 || clawRotation.getPosition() < 0.01) {
-            CRServoPosition += (gamepad2.right_stick_x * -0.007);
-        } else {
-            CRServoPosition += (gamepad2.right_stick_x * -0.004);
+
+        if (gamepad2.dpad_left) {
+            if (clawRotation.getPosition() > 0.99 || clawRotation.getPosition() < 0.01) {
+                CRServoPosition += (0.007);
+            } else {
+                CRServoPosition += (0.004);
+
+            }
+        }
+        if (gamepad2.dpad_right) {
+            if (clawRotation.getPosition() > 0.99 || clawRotation.getPosition() < 0.01) {
+                CRServoPosition -= (0.007);
+            } else {
+                CRServoPosition -= (0.004);
+
+            }
         }
 
         //artemis was not here
@@ -225,23 +239,24 @@ public class RawBaconTeleopA extends OpMode {
             //nuh uh
 
         if (gamepad2.left_stick_y != 0) {
-            Targeting = false;
-            armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            armMotor.setPower(-gamepad2.left_stick_y / 2);
+            if (Mode == 0) {
+                Targeting = false;
+                armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                armMotor.setPower(-gamepad2.left_stick_y / 2);
+            } else {
+
+            }
         }
         else if (!Targeting)
             armMotor.setPower(0);
 
-            //picking up is 220
-
-        if (gamepad2.a){
+        if (gamepad2.a && Mode == 0){
             Targeting = true;
             armMotor.setPower(0.5);
             armMotor.setTargetPosition(240);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-            //minecraft
-        if (gamepad2.y){
+        if (gamepad2.y && Mode == 0){
             Targeting = true;
             armMotor.setPower(0.5);
             armMotor.setTargetPosition(1600);
@@ -254,13 +269,13 @@ public class RawBaconTeleopA extends OpMode {
 //            ascentMotor.setPower(gamepad2.right_stick_y);
 //        }
 
-        if (gamepad2.dpad_down){
+        if (gamepad1.dpad_down){
             ascentMotor.setPower(1);
             ascentMotor.setTargetPosition(50);
             ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        if (gamepad2.dpad_up){
+        if (gamepad1.dpad_up){
             ascentMotor.setPower(1);
             ascentMotor.setTargetPosition(3400);
             ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -268,49 +283,34 @@ public class RawBaconTeleopA extends OpMode {
 
 
 
+
+
+
+
+
         if (Mode == 1) {
-            if (gamepad1.left_stick_y != 0) {
+
+            if (gamepad2.left_stick_y != 0) {
                 sampleExtensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                sampleExtensionMotor.setPower(gamepad1.left_stick_y / 2);
+                sampleExtensionMotor.setPower(gamepad2.left_stick_y / 2);
             } else if (!armMotor.isBusy())
                 sampleExtensionMotor.setPower(0.1);
-//
-//
-//            if (gamepad1.right_stick_y > 0) {
-//                samplePivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//                samplePivotMotor.setPower(-gamepad1.right_stick_y / 1.5);
-//                if (PivotPosition < -250) {
-//                    samplePivotMotor.setPower(-gamepad1.right_stick_y - (0.0007 * ExtensionPosition));
-//
-//                }
-//            }
-//
-//            if (gamepad1.right_stick_y <= 0 && !Targeting) {
-//
-//                samplePivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//                if (PivotPosition < -250)
-//                    samplePivotMotor.setPower(0.14 + (-gamepad1.right_stick_y * 0.14));
-//                else
-//                    samplePivotMotor.setPower((0.15 * Math.sin(((Math.PI * PivotPosition - 500) / 2500) + (Math.PI / 2)) + (-gamepad1.right_stick_y * 0.14)));
-//
-//            }
 
-
-
-            samplePivotMotor.setTargetPosition(PivotTarget);
             samplePivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            samplePivotMotor.setPower(0.3);
+            samplePivotMotor.setPower(0.5);
+            samplePivotMotor.setTargetPosition(PivotTarget);
 
-            PivotTarget += -gamepad1.right_stick_y * 4;
+            PivotTarget += -gamepad2.right_stick_y * 3;
+            }
 
             if (PivotTarget > 20)
                 PivotTarget = 20;
 
-            if (PivotTarget < -410)
-                PivotTarget = -410;
+            if (PivotTarget < -460)
+                PivotTarget = -460;
 
             if (gamepad1.a)
-                PivotTarget =-390;
+                PivotTarget =-460;
 
             if (gamepad1.x)
                 PivotTarget =-300;
@@ -325,23 +325,9 @@ public class RawBaconTeleopA extends OpMode {
         }
 
 
-        ArmMotorPosition = armMotor.getCurrentPosition();
-        AscentMotorPosition = ascentMotor.getCurrentPosition();
-        PivotPosition = samplePivotMotor.getCurrentPosition();
-        ExtensionPosition = sampleExtensionMotor.getCurrentPosition();
-
-        telemetry.addData("AscentMotorPosition: ", AscentMotorPosition);
-        telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
-        telemetry.addData("LeftClaw: ", leftClaw.getPosition());
-        telemetry.addData("RightClaw: ", rightClaw.getPosition());
-        telemetry.addData("Pivot: ", PivotPosition);
-        telemetry.addData("Extension: ", ExtensionPosition);
-        telemetry.addData("Rotation: ", clawRotation.getPosition());
 
 
 
-
-        telemetry.update();
 
 
 
@@ -450,8 +436,7 @@ public class RawBaconTeleopA extends OpMode {
 //        }
 //        //telemetry.addData("armtick", GrabberPivot.);
 //    }
-    }
-    @Override
+@Override
     public void stop(){
 //        winch.setTargetPosition(0);
 //        winch.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
