@@ -39,6 +39,7 @@ public class BotThreeAutoPark extends LinearOpMode {
     DcMotor backright;
     DcMotor armMotor;
     Servo claw;
+    DcMotor samplePivotMotor;
 //    CRServo leftIntake;
 //    CRServo rightIntake;
 
@@ -102,6 +103,8 @@ public class BotThreeAutoPark extends LinearOpMode {
 //        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
         armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         claw = hardwareMap.get(Servo.class, "claw");
+        samplePivotMotor = hardwareMap.get(DcMotor.class, "pivot");
+
 
 //        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
 //        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
@@ -171,61 +174,51 @@ public class BotThreeAutoPark extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         claw.setDirection(Servo.Direction.FORWARD);
+        samplePivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        samplePivotMotor.setTargetPosition(0);
+        samplePivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        samplePivotMotor.setPower(0.5);
         //move to center
-        goToPosition(6 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        //goToPosition(6 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
         //raise arm and move to chambers
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.7);
-        goToPosition(6 *COUNTS_PER_INCH, -31 * COUNTS_PER_INCH,0.35,0,1 * COUNTS_PER_INCH);
+        goToPosition(-36 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.35,90,6 * COUNTS_PER_INCH);
         //set onto chamber and open claw
-        armMotor.setTargetPosition(1100);
+        armMotor.setTargetPosition(1200);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.9);
         sleep(1000);
         claw.setPosition(-0.5);
         sleep(500);
-        //lower arm
-        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //move in front of observation zone
-        goToPosition(12 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
-        armMotor.setTargetPosition(0);
+        goToPosition(-12 *COUNTS_PER_INCH, 48 * COUNTS_PER_INCH,0.5,-90,1 * COUNTS_PER_INCH);
+        armMotor.setTargetPosition(220);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
         sleep(1000);
-        armMotor.setTargetPosition(0);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
-        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-        //turn around
-        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
-        sleep(1500);
         //back into specimen. (human player should begin adjusting the position)
-        armMotor.setTargetPosition(200);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.5);
-        goToPosition(-36 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
-        goToPosition(-36 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.35,180,0.5 * COUNTS_PER_INCH);
+        goToPosition(0 *COUNTS_PER_INCH, 48 * COUNTS_PER_INCH,0.35,-90,2 * COUNTS_PER_INCH);
         sleep(1000);
-        goToPosition(-36 *COUNTS_PER_INCH, 10 * COUNTS_PER_INCH,0.35,180,6 * COUNTS_PER_INCH);
+        goToPosition(3 *COUNTS_PER_INCH, 48 * COUNTS_PER_INCH,0.7,-90,2 * COUNTS_PER_INCH);
         //grab specimen, raise arm, and move to chambers
         claw.setPosition(0.35);
-        sleep(1000);
+        sleep(1500);
         armMotor.setTargetPosition(500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.7);
-        goToPosition(8 *COUNTS_PER_INCH, -16 * COUNTS_PER_INCH,0.5,180,0.5 * COUNTS_PER_INCH);
-        goToPosition(8 *COUNTS_PER_INCH, -16 * COUNTS_PER_INCH,0.5,0,12 * COUNTS_PER_INCH);
+        sleep(500);
+        goToPosition(-12 *COUNTS_PER_INCH, -10 * COUNTS_PER_INCH,0.5,-90,6 * COUNTS_PER_INCH);
+        goToPosition(-12 *COUNTS_PER_INCH, -10 * COUNTS_PER_INCH,0.5,90,6 * COUNTS_PER_INCH);
         armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.7);
-        goToPosition(12 *COUNTS_PER_INCH, -35 * COUNTS_PER_INCH,0.7,0,6 * COUNTS_PER_INCH);
+        goToPosition(-36 *COUNTS_PER_INCH, 4 * COUNTS_PER_INCH,0.5,90,3 * COUNTS_PER_INCH);
         sleep(1000);
         //set sample onto chamber and open
-        armMotor.setTargetPosition(1100);
+        armMotor.setTargetPosition(1200);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.9);
         sleep(500);
@@ -235,8 +228,7 @@ public class BotThreeAutoPark extends LinearOpMode {
         armMotor.setTargetPosition(30);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.5);
-        goToPosition(0 *COUNTS_PER_INCH, -12 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
-        goToPosition(-36 *COUNTS_PER_INCH, 7 * COUNTS_PER_INCH,0.5,0,1 * COUNTS_PER_INCH);
+        goToPosition(6 *COUNTS_PER_INCH, 48 * COUNTS_PER_INCH,0.5,90,1 * COUNTS_PER_INCH);
 
 
         sleep(30000);

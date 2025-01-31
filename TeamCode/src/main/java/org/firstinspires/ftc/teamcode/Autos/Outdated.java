@@ -17,8 +17,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 
-@Autonomous(name = "BotThreeAutoHang")
-public class BotThreeAutoHang extends LinearOpMode {
+@Autonomous(name = "Outdated")
+public class Outdated extends LinearOpMode {
     //Drive motors
     DcMotor right_front, right_back, left_front, left_back;
     //Odometry Wheels
@@ -39,10 +39,8 @@ public class BotThreeAutoHang extends LinearOpMode {
     DcMotor backright;
     DcMotor armMotor;
     Servo claw;
-    DcMotor samplePivotMotor;
-    DcMotor ascentMotor;
-//    CRServo leftIntake;
-//    CRServo rightIntake;
+    CRServo leftIntake;
+    CRServo rightIntake;
 
     OdometryGlobalCoordinatePosition globalPositionUpdate;
 
@@ -69,26 +67,26 @@ public class BotThreeAutoHang extends LinearOpMode {
 //        ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 //    }
 
-//    public void runIntake(String direction, int duration) {
-//
-//        if (direction == "OUT") {
-//            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-//            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-//            leftIntake.setPower(0.5);
-//            rightIntake.setPower(0.5);
-//            sleep(duration);
-//            leftIntake.setPower(0);
-//            rightIntake.setPower(0);
-//        } else if (direction == "IN") {
-//            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-//            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-//            leftIntake.setPower(0.5);
-//            rightIntake.setPower(0.5);
-//            sleep(duration);
-//            leftIntake.setPower(0);
-//            rightIntake.setPower(0);
-//        }
-//    }
+    public void runIntake(String direction, int duration) {
+
+        if (direction == "OUT") {
+            leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        } else if (direction == "IN") {
+            leftIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+            rightIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+            leftIntake.setPower(0.5);
+            rightIntake.setPower(0.5);
+            sleep(duration);
+            leftIntake.setPower(0);
+            rightIntake.setPower(0);
+        }
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -104,10 +102,6 @@ public class BotThreeAutoHang extends LinearOpMode {
 //        armPivotMotor = hardwareMap.get(DcMotor.class, "armpivotmotor");
         armMotor = hardwareMap.get(DcMotor.class, "armmotor");
         claw = hardwareMap.get(Servo.class, "claw");
-        samplePivotMotor = hardwareMap.get(DcMotor.class, "pivot");
-        ascentMotor = hardwareMap.get(DcMotor.class, "ascentmotor");
-
-
 
 //        leftIntake = hardwareMap.get(CRServo.class, "leftintake");
 //        rightIntake = hardwareMap.get(CRServo.class, "rightintake");
@@ -173,49 +167,30 @@ public class BotThreeAutoHang extends LinearOpMode {
 //        sleep(1000);
 
 
-        //initialization
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ascentMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         claw.setDirection(Servo.Direction.FORWARD);
-        samplePivotMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        samplePivotMotor.setTargetPosition(0);
-        samplePivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        samplePivotMotor.setPower(0.5);
-        //move to center
-        //goToPosition(6 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
-        //raise arm and move to chambers
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setTargetPosition(1500);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.7);
-        goToPosition(-32 *COUNTS_PER_INCH, 12 * COUNTS_PER_INCH,0.35,90,6 * COUNTS_PER_INCH);
-        //set onto chamber and open claw
-        armMotor.setTargetPosition(1200);
+        armMotor.setPower(0.5);
+        goToPosition(-30 *COUNTS_PER_INCH, -5 * COUNTS_PER_INCH,0.5,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-30 *COUNTS_PER_INCH, -35 * COUNTS_PER_INCH,0.7,0,12 * COUNTS_PER_INCH);
+        sleep(2000);
+        armMotor.setTargetPosition(1100);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.9);
         sleep(1000);
         claw.setPosition(-0.5);
         sleep(500);
-        //move left of submersible
-        goToPosition(-24 *COUNTS_PER_INCH, -16 * COUNTS_PER_INCH,0.5,90,1 * COUNTS_PER_INCH);
-        sleep(1000);
-        //Move in front of ascension zone
-        goToPosition(-72 *COUNTS_PER_INCH, -24 * COUNTS_PER_INCH,0.35,90,2 * COUNTS_PER_INCH);
-        sleep(1000);
-        //rotate
-        goToPosition(-72 *COUNTS_PER_INCH, -20 * COUNTS_PER_INCH,0.35,0,2 * COUNTS_PER_INCH);
-        //raise arm
-        ascentMotor.setTargetPosition(4000);
-        ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ascentMotor.setPower(0.5);
-        sleep(5000);
-        //Move into ascension zone
-        goToPosition(-72 *COUNTS_PER_INCH, 0 * COUNTS_PER_INCH,0.7,0,4* COUNTS_PER_INCH);
-        //Lower arm
-        ascentMotor.setTargetPosition(3600);
-        ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ascentMotor.setPower(0.5);
+        goToPosition(-6 *COUNTS_PER_INCH, -20 * COUNTS_PER_INCH,0.35,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,0,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(-6 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.35,90,0.5 * COUNTS_PER_INCH);
+        goToPosition(-24 *COUNTS_PER_INCH, -60 * COUNTS_PER_INCH,0.7,90,6 * COUNTS_PER_INCH);
+        sleep(2000);
+        armMotor.setTargetPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0);
 
 
         sleep(30000);

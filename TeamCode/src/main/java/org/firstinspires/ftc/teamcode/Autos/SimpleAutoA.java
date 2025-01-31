@@ -172,10 +172,8 @@ public class SimpleAutoA extends LinearOpMode {
 //        backright.setPower(0);
 
 
-        sleep(10000);
-        goToPosition(0 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
-        sleep(500);
-        goToPosition(48 * COUNTS_PER_INCH, 4 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
+
+        goToPosition(5 * COUNTS_PER_INCH, 48 * COUNTS_PER_INCH, 0.5, 0, 0.5 * COUNTS_PER_INCH);
 
         //super cool coding
 
