@@ -40,6 +40,7 @@ public class RawBaconTeleopA extends OpMode {
     int PivotPosition = 0;
     int ExtensionPosition = 0;
     int PivotTarget = 0;
+    int ExtensionTarget = 0;
 
 
 
@@ -277,7 +278,7 @@ public class RawBaconTeleopA extends OpMode {
 
         if (gamepad1.dpad_up){
             ascentMotor.setPower(1);
-            ascentMotor.setTargetPosition(3400);
+            ascentMotor.setTargetPosition(4000);
             ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
@@ -290,11 +291,19 @@ public class RawBaconTeleopA extends OpMode {
 
         if (Mode == 1) {
 
-            if (gamepad2.left_stick_y != 0) {
-                sampleExtensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                sampleExtensionMotor.setPower(gamepad2.left_stick_y / 2);
-            } else if (!armMotor.isBusy())
-                sampleExtensionMotor.setPower(0.1);
+            sampleExtensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sampleExtensionMotor.setPower(0.5);
+            sampleExtensionMotor.setTargetPosition(ExtensionTarget);
+
+            ExtensionTarget += gamepad2.left_stick_y * 5;
+
+
+
+//            if (gamepad2.left_stick_y != 0) {
+//                sampleExtensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                sampleExtensionMotor.setPower(gamepad2.left_stick_y / 2);
+//            } else if (!armMotor.isBusy())
+//                sampleExtensionMotor.setPower(0.1);
 
             samplePivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             samplePivotMotor.setPower(0.5);
