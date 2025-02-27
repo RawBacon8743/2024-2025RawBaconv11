@@ -28,15 +28,16 @@ public class RawBaconTeleopA extends OpMode {
     Servo claw;
     DcMotor ascentMotor;
     Servo clawRotation;
-    Servo leftClaw;
-    Servo rightClaw;
+//    Servo leftClaw;
+//    Servo rightClaw;
     DcMotor samplePivotMotor;
     DcMotor sampleExtensionMotor;
+    Servo frictionStick;
 
 
 
     int AscentMotorPosition = 0;
-    double CRServoPosition = 0.5;
+    double CRServoPosition = 0;
     int PivotPosition = 0;
     int ExtensionPosition = 0;
     int PivotTarget = 0;
@@ -59,7 +60,10 @@ public class RawBaconTeleopA extends OpMode {
 
     int ArmMotorPosition = 0;
 
+
     boolean Targeting = false;
+
+    boolean Hanging = false;
 
     int Mode = 0;
 
@@ -82,8 +86,9 @@ public class RawBaconTeleopA extends OpMode {
         claw = hardwareMap.get(Servo.class, "claw");
         ascentMotor = hardwareMap.get(DcMotor.class, "ascentmotor");
         clawRotation = hardwareMap.get(Servo.class, "clawrotation");
-        leftClaw = hardwareMap.get(Servo.class, "leftclaw");
-        rightClaw = hardwareMap.get(Servo.class, "rightclaw");
+//        leftClaw = hardwareMap.get(Servo.class, "leftclaw");
+//        rightClaw = hardwareMap.get(Servo.class, "rightclaw");
+        frictionStick = hardwareMap.get(Servo.class, "frictionstick");
         samplePivotMotor = hardwareMap.get(DcMotor.class, "pivot");
         sampleExtensionMotor = hardwareMap.get(DcMotor.class, "extension");
 
@@ -155,13 +160,12 @@ public class RawBaconTeleopA extends OpMode {
             Mode = 1;
 
 
-
         //if  (isrunning) {
 
         if (gamepad1.left_trigger == 1) {
             WheelSpeed = 0.2;
         } else if (gamepad1.left_trigger == 0) {
-            WheelSpeed = 0.5;
+            WheelSpeed = 0.7;
         }
 
         double Pad2LeftStickY = gamepad2.left_stick_y;
@@ -171,40 +175,46 @@ public class RawBaconTeleopA extends OpMode {
         double RightStickX = -gamepad1.right_stick_x;
 
 
+        frontright.setPower((-RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
+        backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
+        frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
+        backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
 
-            frontright.setPower((-RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
-            backright.setPower((-RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
-            frontleft.setPower((RightStickX / 1.5 + (LeftStickY + LeftStickX)) * WheelSpeed);
-            backleft.setPower((RightStickX / 1.5 + (LeftStickY - LeftStickX)) * WheelSpeed);
-
-            if (Mode == 0) {
-                samplePivotMotor.setTargetPosition(PivotPosition);
-                sampleExtensionMotor.setTargetPosition(ExtensionPosition);
-                sampleExtensionMotor.setPower(0.3);
-                samplePivotMotor.setPower(0.3);
-            }
-
+        if (Mode == 0) {
+            samplePivotMotor.setTargetPosition(PivotPosition);
+            sampleExtensionMotor.setTargetPosition(ExtensionPosition);
+            sampleExtensionMotor.setPower(0.3);
+            if (!Hanging) samplePivotMotor.setPower(0.3);
+        }
 
 
-        if (gamepad2.right_trigger == 1){
+        if (gamepad2.right_trigger == 1) {
             if (Mode == 0) {
                 claw.setPosition(0);
             } else {
-                leftClaw.setPosition(0.6);
-                rightClaw.setPosition(0.6);
+//                leftClaw.setPosition(0.6);
+//                rightClaw.setPosition(0.6);
+
+                frictionStick.setDirection(Servo.Direction.REVERSE);
+                frictionStick.setPosition(0.1); //inward
+
             }
+
+
         } else {
             if (Mode == 0) {
                 claw.setPosition(0.35);
             } else {
-                leftClaw.setPosition(0.75);
-                rightClaw.setPosition(0.8);
+//                leftClaw.setPosition(0.75);
+//                rightClaw.setPosition(0.8);
+
+                frictionStick.setDirection(Servo.Direction.FORWARD);
+                frictionStick.setPosition(0.1); //outward
             }
         }
 
-        leftClaw.setDirection(Servo.Direction.FORWARD);
-        rightClaw.setDirection(Servo.Direction.REVERSE);
-
+//        leftClaw.setDirection(Servo.Direction.FORWARD);
+//        rightClaw.setDirection(Servo.Direction.REVERSE);
 
 
         clawRotation.setDirection(Servo.Direction.FORWARD);
@@ -218,26 +228,33 @@ public class RawBaconTeleopA extends OpMode {
 //        }
 
 
-        if (gamepad2.dpad_left) {
+        if (gamepad2.dpad_right) {
             if (clawRotation.getPosition() > 0.99 || clawRotation.getPosition() < 0.01) {
-                CRServoPosition += (0.007);
+                CRServoPosition += (0.010);
             } else {
-                CRServoPosition += (0.004);
+                CRServoPosition += (0.007);
 
             }
         }
-        if (gamepad2.dpad_right) {
+        if (gamepad2.dpad_left) {
             if (clawRotation.getPosition() > 0.99 || clawRotation.getPosition() < 0.01) {
                 CRServoPosition -= (0.007);
             } else {
                 CRServoPosition -= (0.004);
 
             }
+
+            if (CRServoPosition > 1)
+                CRServoPosition = 1;
+
+            if (CRServoPosition < 0)
+                CRServoPosition = 0;
+
         }
 
         //artemis was not here
-            // yes i was
-            //nuh uh
+        // yes i was
+        //nuh uh
 
         if (gamepad2.left_stick_y != 0) {
             if (Mode == 0) {
@@ -247,19 +264,18 @@ public class RawBaconTeleopA extends OpMode {
             } else {
 
             }
-        }
-        else if (!Targeting)
+        } else if (!Targeting)
             armMotor.setPower(0);
 
-        if (gamepad2.a && Mode == 0){
+        if (gamepad2.a && Mode == 0) {
             Targeting = true;
-            armMotor.setPower(0.5);
+            armMotor.setPower(0.6);
             armMotor.setTargetPosition(240);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        if (gamepad2.y && Mode == 0){
+        if (gamepad2.y && Mode == 0) {
             Targeting = true;
-            armMotor.setPower(0.5);
+            armMotor.setPower(0.6);
             armMotor.setTargetPosition(1600);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
@@ -270,23 +286,17 @@ public class RawBaconTeleopA extends OpMode {
 //            ascentMotor.setPower(gamepad2.right_stick_y);
 //        }
 
-        if (gamepad1.dpad_down){
-            ascentMotor.setPower(1);
-            ascentMotor.setTargetPosition(50);
-            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if (gamepad1.dpad_up){
-            ascentMotor.setPower(1);
-            ascentMotor.setTargetPosition(4000);
-            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-
-
-
-
-
+//        if (gamepad1.dpad_down) {
+//            ascentMotor.setPower(1);
+//            ascentMotor.setTargetPosition(50);
+//            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        }
+//
+//        if (gamepad1.dpad_up) {
+//            ascentMotor.setPower(1);
+//            ascentMotor.setTargetPosition(4000);
+//            ascentMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        }
 
 
         if (Mode == 1) {
@@ -295,8 +305,13 @@ public class RawBaconTeleopA extends OpMode {
             sampleExtensionMotor.setPower(0.5);
             sampleExtensionMotor.setTargetPosition(ExtensionTarget);
 
-            ExtensionTarget += gamepad2.left_stick_y * 5;
+            ExtensionTarget += gamepad2.left_stick_y * 14;
 
+            if (ExtensionTarget > 0)
+                ExtensionTarget = 0;
+
+            if (ExtensionTarget < -2000)
+                ExtensionTarget = -2000;
 
 
 //            if (gamepad2.left_stick_y != 0) {
@@ -306,48 +321,58 @@ public class RawBaconTeleopA extends OpMode {
 //                sampleExtensionMotor.setPower(0.1);
 
             samplePivotMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            samplePivotMotor.setPower(0.5);
+            if (!Hanging) samplePivotMotor.setPower(0.5);
+            if (PivotTarget < -300 && !Hanging)
+                samplePivotMotor.setPower(0.5 + (ExtensionTarget / 3200));
             samplePivotMotor.setTargetPosition(PivotTarget);
 
-            PivotTarget += -gamepad2.right_stick_y * 3;
+            PivotTarget += -gamepad2.right_stick_y * 4;
+
+            if (PivotPosition < -400 && ExtensionPosition > 400) {
+                if (PivotTarget > -400)
+                    PivotTarget = -400;
             }
 
-            if (PivotTarget > 20)
-                PivotTarget = 20;
+//            if (gamepad2.b){
+//                Hanging = true;
+//                sampleExtensionMotor.setPower(1);
+//                samplePivotMotor.setPower(0);
+//            }
+        }
 
-            if (PivotTarget < -460)
-                PivotTarget = -460;
+//            if (PivotTarget > 20)
+//                PivotTarget = 20;
 
-            if (gamepad1.a)
-                PivotTarget =-460;
+//            if (gamepad1.a)
+//                PivotTarget =-460;
 
-            if (gamepad1.x)
-                PivotTarget =-300;
-
-            if (gamepad1.y)
-                PivotTarget =0;
+//            if (gamepad1.y)
+//                PivotTarget =-300;
+//
+//            if (gamepad1.x)
+//                PivotTarget = -470;
 
 
 //            if (gamepad1.right_stick_y != 0)
 //                Targeting = false;
 
-        }
+
+        ArmMotorPosition = armMotor.getCurrentPosition();
+
+        PivotPosition = samplePivotMotor.getCurrentPosition();
+
+        ExtensionPosition = sampleExtensionMotor.getCurrentPosition();
 
 
+        telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
+        telemetry.addData("PivotMotorPostion: ", PivotPosition);
+        telemetry.addData("ExtensionPosition: ", ExtensionPosition);
+        telemetry.addData("ExtensionTarget: ", ExtensionTarget);
 
 
+        telemetry.update();
 
-
-
-
-//        ArmMotorPosition = armMotor.getCurrentPosition();
-//
-//        PivotMotorPostion = armPivotMotor.getCurrentPosition();
-//
-//        telemetry.addData("ArmMotorPosition: ", ArmMotorPosition);
-//        telemetry.addData("PivotMotorPostion: ", PivotMotorPostion);
-//        telemetry.update();
-
+    }
 //        if(gamepad2.left_trigger == 1){
 //
 //            leftIntake.setPosition(0.6);
