@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.other;
+package org.firstinspires.ftc.teamcode.teamcode.other;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,6 +7,8 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class webcamTest extends LinearOpMode {
 
     private VisionPortal visionPortal;
     private AprilTagProcessor aprilTagProcessor;
+    private AprilTagSingleDetection aprilTagSingleDetection;
 
     private double check;
 
@@ -41,10 +44,13 @@ public class webcamTest extends LinearOpMode {
             // Get the list of all currently detected AprilTags from your processor
             List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
 
+
+
             // Loop through each detection found in the frame
             for (AprilTagDetection detection : currentDetections) {
+                AprilTagSingleDetection single = (AprilTagSingleDetection) detection; //typecasting all detections as single
                 // Check if the detection has a valid ID code
-                    int tagId = detection.id; // This is the AprilTag ID number
+                    int tagId = single.id; // This is the AprilTag ID number
                 telemetry.addLine("yo");
                 if (detection.ftcPose != null) {
                     telemetry.addData("Tag ID", tagId);
