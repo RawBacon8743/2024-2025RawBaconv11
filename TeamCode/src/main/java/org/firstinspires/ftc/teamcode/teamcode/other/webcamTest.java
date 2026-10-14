@@ -48,21 +48,23 @@ public class webcamTest extends LinearOpMode {
 
             // Loop through each detection found in the frame
             for (AprilTagDetection detection : currentDetections) {
-                AprilTagSingleDetection single = (AprilTagSingleDetection) detection; //typecasting all detections as single
-                // Check if the detection has a valid ID code
+                if (detection instanceof AprilTagSingleDetection) {
+                    AprilTagSingleDetection single = (AprilTagSingleDetection) detection; //typecasting all detections as single
+                    // Check if the detection has a valid ID code
                     int tagId = single.id; // This is the AprilTag ID number
-                telemetry.addLine("yo");
-                if (detection.ftcPose != null) {
-                    telemetry.addData("Tag ID", tagId);
+                    telemetry.addLine("yo");
+                    if (detection.ftcPose != null) {
+                        telemetry.addData("Tag ID", tagId);
 
-                    // Add logic here for what to do with a specific ID
-                    if (tagId == 33) {
-                        // Do something for Tag 1
-                        check = detection.ftcPose.y; //This spit out errors
-                        telemetry.addData("see tag?", check);
+                        // Add logic here for what to do with a specific ID
+                        if (tagId == 33) {
+                            // Do something for Tag 1
+                            check = detection.ftcPose.y; //This spit out errors
+                            telemetry.addData("see tag?", check);
+                        }
+                    } else {
+                        telemetry.addLine("where is this");
                     }
-                } else {
-                    telemetry.addLine("where is this");
                 }
             }
             telemetry.update();

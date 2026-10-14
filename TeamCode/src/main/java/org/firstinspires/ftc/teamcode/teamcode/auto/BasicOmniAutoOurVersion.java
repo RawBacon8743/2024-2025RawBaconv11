@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -42,6 +42,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -204,17 +205,23 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
 
             // Loop through each detection found in the frame
             for (AprilTagDetection detection : currentDetections) {
-                // Check if the detection has a valid ID code
-                    int tagId = detection.id; // This is the AprilTag ID number
-
+                if (detection instanceof AprilTagSingleDetection) {
+                    AprilTagSingleDetection single = (AprilTagSingleDetection) detection;
+                    int tagId = single.id; // This is the AprilTag ID number
                     telemetry.addData("Tag ID", tagId);
-
-                    // Add logic here for what to do with a specific ID
                     if (tagId == 33) {
                         // Do something for Tag 1
 //                        x_Distance_To_Target=10;
 //                        y_Distance_To_Target=10;
 //                        heading_Distance_To_Target=10;
+                }
+
+                // Check if the detection has a valid ID code
+
+
+
+                    // Add logic here for what to do with a specific ID
+
                 }
             }
 
