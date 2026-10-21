@@ -168,6 +168,8 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
 
         final double inchesPerTick = 0.002968435 * 17 / 12;//some value please calculate!!
         final double rotationCalibration = 43.2364933897 / 30;
+        double trackwidth = 11.61417;
+        double forward_offset = 8.25; //we good
 
         final double atanDistStretch = 10;
         final double atanRotStretch = 0.7;
@@ -180,8 +182,6 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
         double y_Distance_To_Target       = 1000000;
         double heading_Distance_To_Target = 1000000;
 
-        double trackwidth = 11.61417;
-        double forward_offset = 8.25; //we good
 
         double acceptablePosRange = 1;
         double acceptableRotRange = Math.toRadians(3);

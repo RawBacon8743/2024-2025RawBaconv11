@@ -139,6 +139,8 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double heading = 0;
         final double inchesPerTick = 0.002968435 * 17 / 12;//some value please calculate!!
         final double rotationCalibration = 43.2364933897 / 30;
+        double trackwidth = 11.61417;
+        double forward_offset = 8.25; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -179,8 +181,6 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             double center_encoder_pos = frontRightDrive.getCurrentPosition() * inchesPerTick;
 
             // Place holders
-            double trackwidth = 11.61417;
-            double forward_offset = 8.25; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
 
             // This is the function, it will eventually just be called here and actually defined in another file
             double delta_left_encoder_pos = left_encoder_pos - prev_left_encoder_pos;
