@@ -28,7 +28,7 @@ public class webcamTest extends LinearOpMode {
     public void runOpMode() {
         // 1. (Optional) Initialize a vision processor, like the built-in AprilTag engine
         aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
-        aprilTagProcessor = new AprilTagProcessor.Builder().setTagLibrary(AprilTagGameDatabase.getCurrentGameTagLibrary()).build();
+        //aprilTagProcessor = new AprilTagProcessor.Builder().setTagLibrary(AprilTagGameDatabase.getCurrentGameTagLibrary()).build();
 
         // 2. Build the Vision Portal using your webcam configuration name
         visionPortal = new VisionPortal.Builder()
@@ -55,7 +55,7 @@ public class webcamTest extends LinearOpMode {
             for (AprilTagDetection detection : currentDetections) {
                 if (detection instanceof AprilTagClusterDetection) {
                     AprilTagClusterDetection single = (AprilTagClusterDetection) detection; //typecasting all detections as single
-                    // Check if the detection has a valid ID code
+                    // Check if the detection has a valid ID code <- not applicable
                     //int tagId = single.id; // This is the AprilTag ID number
                     if (detection.ftcPose != null) {
                         farness = detection.ftcPose.y; //This spit out errors
@@ -66,6 +66,7 @@ public class webcamTest extends LinearOpMode {
                             telemetry.addLine("I found my cluster.");
                         }
                         telemetry.addLine(ClusterName);
+
 
                         //    telemetry.addData("see tag?", check);
 
@@ -82,7 +83,7 @@ public class webcamTest extends LinearOpMode {
                     }
                 }
             }
-            telemetry.update();
+
 
 
             // Helpful data output to Driver Station
