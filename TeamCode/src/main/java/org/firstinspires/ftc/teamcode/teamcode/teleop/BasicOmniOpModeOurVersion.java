@@ -137,6 +137,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double prev_right_encoder_pos = 0;
         double prev_center_encoder_pos = 0;
         double heading = 0;
+
         final double inchesPerTick = 0.002968435 * 17 / 12;//some value please calculate!!
         final double rotationCalibration = 43.2364933897 / 30;
         double trackwidth = 11.61417;
@@ -158,6 +159,8 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             double backLeftPower   = axial - lateral + yaw;
             double backRightPower  = axial + lateral - yaw;
             double intakePower;
+            double launchMotorPower;
+            double servoMotorsPower;
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
@@ -220,12 +223,23 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             frontRightPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
             backRightPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
             */
-            if (gamepad1.right_bumper) {
-                intakePower = 1.0;
+            if (gamepad1.right_bumper && false) {
+                intakePower = 0.5;
             } else {
                 intakePower = 0.0;
             }
 
+            if (gamepad1.right_bumper && false){ // same as intake right now
+                servoMotorsPower = 0.5;
+            } else {
+                servoMotorsPower = 0;
+            }
+
+            if (gamepad1.left_bumper && false){
+                launchMotorPower = 0.5;
+            } else {
+                launchMotorPower = 0;
+            }
 
             // Send calculated power to wheels
             frontLeftDrive.setPower(frontLeftPower);
