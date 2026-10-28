@@ -138,10 +138,10 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double prev_center_encoder_pos = 0;
         double heading = 0;
 
-        final double inchesPerTick = 0.002968435 * 17 / 12;//some value please calculate!!
-        final double rotationCalibration = 43.2364933897 / 30;
-        double trackwidth = 11.61417;
-        double forward_offset = 8.25; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
+        final double inchesPerTick = 0.002968435 * 17 / 12 * (8 / 10.91666);//some value please calculate!!
+        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655);
+        double trackwidth = 14.375;
+        double forward_offset = 4.55; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
