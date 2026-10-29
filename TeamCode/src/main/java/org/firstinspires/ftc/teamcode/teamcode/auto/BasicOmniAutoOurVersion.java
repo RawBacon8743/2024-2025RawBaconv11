@@ -146,7 +146,7 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
         aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
 
         // 2. Build the Vision Portal using your webcam configuration name
-        visionPortal = new VisionPortal.Builder()
+        /*visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .addProcessor(aprilTagProcessor) // Remove or comment out if you are using a blank stream
                 .build();
@@ -155,7 +155,7 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-        runtime.reset();
+        runtime.reset();*/
 
         //Odometry variables
         double x_pos = 0;
