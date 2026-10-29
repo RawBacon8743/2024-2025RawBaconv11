@@ -67,7 +67,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="First Auto", group="Linear OpMode")
+@Autonomous(name="10in", group="Linear OpMode")
 //@Disabled
 public class AutoMove10Inches extends LinearOpMode {
 
@@ -82,7 +82,7 @@ public class AutoMove10Inches extends LinearOpMode {
     //private DcMotorEx rightPod = null;
     //private DcMotorEx perpPod = null;
 
-    private VisionPortal visionPortal;
+    //private VisionPortal visionPortal;
     private AprilTagProcessor aprilTagProcessor;
 
     public enum TargetState {
@@ -141,14 +141,14 @@ public class AutoMove10Inches extends LinearOpMode {
         aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
 
         // 2. Build the Vision Portal using your webcam configuration name
-        visionPortal = new VisionPortal.Builder()
+        /*visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .addProcessor(aprilTagProcessor) // Remove or comment out if you are using a blank stream
                 .build();
 
         telemetry.addData("Status", "Camera Initialized. Press Play.");
         telemetry.update();
-
+*/
         waitForStart();
         runtime.reset();
 
@@ -375,10 +375,10 @@ public class AutoMove10Inches extends LinearOpMode {
 
             telemetry.addData("Target State: ", targetState);
 
-            telemetry.addData("Camera State", visionPortal.getCameraState().toString());
+            //telemetry.addData("Camera State", visionPortal.getCameraState().toString());
 
             telemetry.update();
         }
-        visionPortal.close();
+        //visionPortal.close();
     }
 }

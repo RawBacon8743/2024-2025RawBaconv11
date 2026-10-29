@@ -35,8 +35,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 /*
@@ -67,7 +65,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="First Auto", group="Linear OpMode")
+@Autonomous(name="far straight", group="Linear OpMode")
 //@Disabled
 public class AutoMoveFarStraight extends LinearOpMode {
 
@@ -82,7 +80,7 @@ public class AutoMoveFarStraight extends LinearOpMode {
     //private DcMotorEx rightPod = null;
     //private DcMotorEx perpPod = null;
 
-    private VisionPortal visionPortal;
+    //private VisionPortal visionPortal;
     private AprilTagProcessor aprilTagProcessor;
 
     public enum TargetState {
@@ -141,14 +139,14 @@ public class AutoMoveFarStraight extends LinearOpMode {
         aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
 
         // 2. Build the Vision Portal using your webcam configuration name
-        visionPortal = new VisionPortal.Builder()
+        /*visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .addProcessor(aprilTagProcessor) // Remove or comment out if you are using a blank stream
                 .build();
 
         telemetry.addData("Status", "Camera Initialized. Press Play.");
         telemetry.update();
-
+*/
         waitForStart();
         runtime.reset();
 
@@ -232,8 +230,8 @@ public class AutoMoveFarStraight extends LinearOpMode {
                 case target1:
 
                     target_x_pos   = 0;
-                    target_y_pos   = 100;
-                    target_heading = Math.toRadians(-90);
+                    target_y_pos   = 36;
+                    target_heading = Math.toRadians(0);
 
 
                     if (inRange) {
@@ -247,9 +245,9 @@ public class AutoMoveFarStraight extends LinearOpMode {
                     }
                     break;
                 case target2:
-                    target_x_pos   = -5;
-                    target_y_pos   = 0;
-                    target_heading = Math.toRadians(0); // it took an unoptimal rotation.
+                    //target_x_pos   = 0;
+                    //target_y_pos   = 0;
+                    //target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
 
                     if (inRange) {
                         breakTime = runtime.seconds() + 2;
@@ -375,10 +373,10 @@ public class AutoMoveFarStraight extends LinearOpMode {
 
             telemetry.addData("Target State: ", targetState);
 
-            telemetry.addData("Camera State", visionPortal.getCameraState().toString());
+            //telemetry.addData("Camera State", visionPortal.getCameraState().toString());
 
             telemetry.update();
         }
-        visionPortal.close();
+        //visionPortal.close();
     }
 }

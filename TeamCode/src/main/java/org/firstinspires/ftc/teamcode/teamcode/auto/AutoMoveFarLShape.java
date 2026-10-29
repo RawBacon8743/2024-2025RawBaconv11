@@ -67,7 +67,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="First Auto", group="Linear OpMode")
+@Autonomous(name="farL", group="Linear OpMode")
 //@Disabled
 public class AutoMoveFarLShape extends LinearOpMode {
 
@@ -82,7 +82,7 @@ public class AutoMoveFarLShape extends LinearOpMode {
     //private DcMotorEx rightPod = null;
     //private DcMotorEx perpPod = null;
 
-    private VisionPortal visionPortal;
+    //private VisionPortal visionPortal;
     private AprilTagProcessor aprilTagProcessor;
 
     public enum TargetState {
@@ -141,14 +141,14 @@ public class AutoMoveFarLShape extends LinearOpMode {
         aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
 
         // 2. Build the Vision Portal using your webcam configuration name
-        visionPortal = new VisionPortal.Builder()
+        /*visionPortal = new VisionPortal.Builder()
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .addProcessor(aprilTagProcessor) // Remove or comment out if you are using a blank stream
                 .build();
 
         telemetry.addData("Status", "Camera Initialized. Press Play.");
         telemetry.update();
-
+*/
         waitForStart();
         runtime.reset();
 
@@ -231,9 +231,10 @@ public class AutoMoveFarLShape extends LinearOpMode {
             switch (targetState){
                 case target1:
 
-                    target_x_pos   = 30;
-                    target_y_pos   = -30;
-                    target_heading = Math.toRadians(135);
+                    target_x_pos   = 0;
+                    target_y_pos   = 36;
+                    target_heading = Math.toRadians(0);
+                    //target_heading = Math.toRadians(135);
 
 
                     if (inRange) {
@@ -247,9 +248,10 @@ public class AutoMoveFarLShape extends LinearOpMode {
                     }
                     break;
                 case target2:
-                    target_x_pos   = 0;
-                    target_y_pos   = 0;
-                    target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
+                    target_x_pos   = 12;
+                    target_y_pos   = 36;
+                    target_heading = Math.toRadians(0);
+                    //target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
 
                     if (inRange) {
                         breakTime = runtime.seconds() + 2;
@@ -375,11 +377,11 @@ public class AutoMoveFarLShape extends LinearOpMode {
 
             telemetry.addData("Target State: ", targetState);
 
-            telemetry.addData("Camera State", visionPortal.getCameraState().toString());
+            //telemetry.addData("Camera State", visionPortal.getCameraState().toString());
 
             telemetry.update();
         }
-        visionPortal.close();
+        //visionPortal.close();
     }
 }
 
