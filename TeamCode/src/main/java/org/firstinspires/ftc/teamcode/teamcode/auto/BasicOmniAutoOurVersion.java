@@ -201,29 +201,29 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
             // Your loop logic goes here
 
             // Get the list of all currently detected AprilTags from your processor
-//            List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
-//
-//            // Loop through each detection found in the frame
-//            for (AprilTagDetection detection : currentDetections) {
-//                if (detection instanceof AprilTagSingleDetection) {
-//                    AprilTagSingleDetection single = (AprilTagSingleDetection) detection;
-//                    int tagId = single.id; // This is the AprilTag ID number
-//                    telemetry.addData("Tag ID", tagId);
-//                    if (tagId == 33) {
-//                        // Do something for Tag 1
+            List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
+
+            // Loop through each detection found in the frame
+            for (AprilTagDetection detection : currentDetections) {
+                if (detection instanceof AprilTagSingleDetection) {
+                    AprilTagSingleDetection single = (AprilTagSingleDetection) detection;
+                    int tagId = single.id; // This is the AprilTag ID number
+                    telemetry.addData("Tag ID", tagId);
+                    if (tagId == 33) {
+                        // Do something for Tag 1
 //                        x_Distance_To_Target=10;
 //                        y_Distance_To_Target=10;
 //                        heading_Distance_To_Target=10;
-//                }
-//
-//                // Check if the detection has a valid ID code
-//
-//
-//
-//                    // Add logic here for what to do with a specific ID
-//
-//                }
-//            }
+                }
+
+                // Check if the detection has a valid ID code
+
+
+
+                    // Add logic here for what to do with a specific ID
+
+                }
+            }
 
 
 
@@ -238,7 +238,7 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
 
                     target_x_pos   = 30;
                     target_y_pos   = -30;
-                    target_heading = Math.toRadians(135);
+                    target_heading = Math.toRadians(90);
 
 
                     if (inRange) {
@@ -248,7 +248,7 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
                     break;
                 case rest1:
                     if (runtime.seconds() > breakTime) {
-                        targetState = targetState.target2;
+                        //targetState = targetState.target2;
                     }
                     break;
                 case target2:

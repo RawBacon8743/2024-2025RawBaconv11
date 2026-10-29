@@ -161,10 +161,10 @@ public class AutoMoveFarStraight extends LinearOpMode {
         double prev_center_encoder_pos = 0;
         double heading = 0;
 
-        final double inchesPerTick = 0.002968435 * 17 / 12;//some value please calculate!!
-        final double rotationCalibration = 43.2364933897 / 30;
-        double trackwidth = 11.61417;
-        double forward_offset = 8.25; //we good
+        final double inchesPerTick = 0.002968435 * 17 / 12 * (8 / 10.91666);//some value please calculate!!
+        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655);
+        double trackwidth = 14.28;
+        double forward_offset = 4.55;
 
         final double atanDistStretch = 10;
         final double atanRotStretch = 0.7;
@@ -231,9 +231,9 @@ public class AutoMoveFarStraight extends LinearOpMode {
             switch (targetState){
                 case target1:
 
-                    target_x_pos   = 30;
-                    target_y_pos   = -30;
-                    target_heading = Math.toRadians(135);
+                    target_x_pos   = 0;
+                    target_y_pos   = 100;
+                    target_heading = Math.toRadians(-90);
 
 
                     if (inRange) {
@@ -247,9 +247,9 @@ public class AutoMoveFarStraight extends LinearOpMode {
                     }
                     break;
                 case target2:
-                    target_x_pos   = 0;
+                    target_x_pos   = -5;
                     target_y_pos   = 0;
-                    target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
+                    target_heading = Math.toRadians(0); // it took an unoptimal rotation.
 
                     if (inRange) {
                         breakTime = runtime.seconds() + 2;
