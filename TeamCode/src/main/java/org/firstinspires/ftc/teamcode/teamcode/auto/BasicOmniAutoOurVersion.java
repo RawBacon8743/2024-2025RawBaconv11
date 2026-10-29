@@ -94,7 +94,8 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
         target1,
         rest1,
         target2,
-        rest2
+        rest2,
+        target3
     }
 
     @Override
@@ -152,10 +153,10 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
                 .build();
 
         telemetry.addData("Status", "Camera Initialized. Press Play.");
-        telemetry.update();
+        telemetry.update();*/
 
         waitForStart();
-        runtime.reset();*/
+        runtime.reset();
 
         //Odometry variables
         double x_pos = 0;
@@ -236,9 +237,9 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
             switch (targetState){
                 case target1:
 
-                    target_x_pos   = 30;
-                    target_y_pos   = -30;
-                    target_heading = Math.toRadians(90);
+                    target_x_pos   = 0;
+                    target_y_pos   = 30;
+                    target_heading = Math.toRadians(0);
 
 
                     if (inRange) {
@@ -248,12 +249,10 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
                     break;
                 case rest1:
                     if (runtime.seconds() > breakTime) {
-                        //targetState = targetState.target2;
+                        targetState = targetState.target2;
                     }
                     break;
                 case target2:
-                    target_x_pos   = 0;
-                    target_y_pos   = 0;
                     target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
 
                     if (inRange) {
@@ -264,6 +263,14 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
                     break;
                 case rest2:
                     telemetry.addData("im in rest",0);
+                    if (breakTime <= runtime.seconds()){
+                        targetState = TargetState.target3;
+                    }
+
+                    break;
+
+                case target3:
+                    target_x_pos = -10;
 
                     break;
             }
@@ -380,10 +387,10 @@ public class BasicOmniAutoOurVersion extends LinearOpMode {
 
             telemetry.addData("Target State: ", targetState);
 
-            telemetry.addData("Camera State", visionPortal.getCameraState().toString());
+            //telemetry.addData("Camera State", visionPortal.getCameraState().toString());
 
             telemetry.update();
         }
-        visionPortal.close();
+        //visionPortal.close();
     }
 }
