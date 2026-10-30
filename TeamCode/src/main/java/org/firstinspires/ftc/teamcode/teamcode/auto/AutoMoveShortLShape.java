@@ -248,7 +248,7 @@ public class AutoMoveShortLShape extends LinearOpMode {
                     }
                     break;
                 case target2:
-                    target_x_pos   = 12;
+                    target_x_pos   = -2;
                     target_y_pos   = 12;
                     target_heading = Math.toRadians(0);
                     //target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
