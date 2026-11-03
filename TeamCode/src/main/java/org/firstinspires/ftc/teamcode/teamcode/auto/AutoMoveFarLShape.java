@@ -284,7 +284,7 @@ public class AutoMoveFarLShape extends LinearOpMode {
             double phi = ((delta_left_encoder_pos - delta_right_encoder_pos) / trackwidth) / rotationCalibration;
             double delta_middle_pos = (delta_left_encoder_pos + delta_right_encoder_pos) / 2;
             double delta_perp_pos = delta_center_encoder_pos - forward_offset * phi;
-            double delta_x = -1 * (delta_perp_pos * Math.cos(heading) - delta_middle_pos * Math.sin(heading));
+            double delta_x =  (delta_perp_pos * Math.cos(heading) - delta_middle_pos * Math.sin(heading));
             double delta_y = delta_perp_pos * Math.sin(heading) + delta_middle_pos * Math.cos(heading);
 
             x_pos   += delta_x;
