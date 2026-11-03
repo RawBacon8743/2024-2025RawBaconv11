@@ -129,7 +129,12 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        double max_speed = 0.8;
+
         //Odometry variables
+
+
+
         double x_pos = 0;
         double y_pos = 0;
 
@@ -235,17 +240,20 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
                 servoMotorsPower = 0;
             }
 
-            if (gamepad1.left_bumper && false){
-                launchMotorPower = 0.5;
+            if (gamepad1.left_bumper){
+                max_speed = 0.3;
+                //launchMotorPower = 0.5; // not now, sillies
             } else {
-                launchMotorPower = 0;
+                max_speed = 0.8;
+                //launchMotorPower = 0; // not now sillies
             }
 
+
             // Send calculated power to wheels
-            frontLeftDrive.setPower(frontLeftPower);
-            frontRightDrive.setPower(frontRightPower);
-            backLeftDrive.setPower(backLeftPower);
-            backRightDrive.setPower(backRightPower);
+            frontLeftDrive.setPower(frontLeftPower * max_speed);
+            frontRightDrive.setPower(frontRightPower * max_speed);
+            backLeftDrive.setPower(backLeftPower * max_speed);
+            backRightDrive.setPower(backRightPower * max_speed);
             intakeDrive.setPower(intakePower);
 
             // Show the elapsed game time and wheel power.
