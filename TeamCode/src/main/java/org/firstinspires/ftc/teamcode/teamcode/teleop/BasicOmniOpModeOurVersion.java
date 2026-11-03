@@ -143,7 +143,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double prev_center_encoder_pos = 0;
         double heading = 0;
 
-        final double inchesPerTick = 0.002968435 * 17 / 12 * (8 / 10.91666);//some value please calculate!!
+        final double inchesPerTick = 0.002968435 * (17.0 / 12.0) * (8.0 / 10.91666);//some value please calculate!!
         final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655);
         double trackwidth = 14.375;
         double forward_offset = 4.55; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
@@ -198,7 +198,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             double phi = ((delta_left_encoder_pos - delta_right_encoder_pos) / trackwidth) / rotationCalibration;
             double delta_middle_pos = (delta_left_encoder_pos + delta_right_encoder_pos) / 2;
             double delta_perp_pos = delta_center_encoder_pos - forward_offset * phi;
-            double delta_x = -1 * (delta_perp_pos * Math.cos(heading) - delta_middle_pos * Math.sin(heading));
+            double delta_x = (delta_perp_pos * Math.cos(heading) - delta_middle_pos * Math.sin(heading));
             double delta_y = delta_perp_pos * Math.sin(heading) + delta_middle_pos * Math.cos(heading);
 
             x_pos += delta_x;
@@ -268,6 +268,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             telemetry.addData("Right Encoder", backLeftDrive.getCurrentPosition());
             telemetry.addData("Perp Encoder", frontRightDrive.getCurrentPosition());
             telemetry.addData("delta perp pos", delta_perp_pos);
+
             telemetry.update();
 
 
