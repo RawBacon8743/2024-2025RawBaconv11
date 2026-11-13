@@ -228,16 +228,28 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             frontRightPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
             backRightPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
             */
-            if (gamepad1.right_bumper && false) {
+            if (gamepad2.right_bumper) {
+                intakePower = 0.5;
+            } else if (gamepad2.right_trigger_pressed) {
                 intakePower = 0.5;
             } else {
                 intakePower = 0.0;
             }
 
-            if (gamepad1.right_bumper && false){ // same as intake right now
+            if (gamepad2.left_bumper){ // same as intake right now
                 servoMotorsPower = 0.5;
+            } else if (gamepad2.left_trigger_pressed) {
+                servoMotorsPower = -0.5;
             } else {
                 servoMotorsPower = 0;
+            }
+
+            if (gamepad2.x) {
+                launchMotorPower = 0.5;
+            }
+
+            if (gamepad2.y) {
+                launchMotorPower = 0;
             }
 
             if (gamepad1.left_bumper){
