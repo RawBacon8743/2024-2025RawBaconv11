@@ -77,7 +77,7 @@ public class AutoMoveShortLShape extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
-    private DcMotor intakeDrive = null;
+    private DcMotor intakeMotor = null;
     //private DcMotorEx leftPod = null;
     //private DcMotorEx rightPod = null;
     //private DcMotorEx perpPod = null;
@@ -101,7 +101,7 @@ public class AutoMoveShortLShape extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "back_left_drive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "front_right_drive");
         backRightDrive = hardwareMap.get(DcMotor.class, "back_right_drive");
-        intakeDrive = hardwareMap.get(DcMotor.class, "intake");
+        intakeMotor = hardwareMap.get(DcMotor.class, "intake");
         //leftPod = hardwareMap.get(DcMotorEx.class, "leftPod");
         //rightPod = hardwareMap.get(DcMotorEx.class, "rightPod");
         //perpPod = hardwareMap.get(DcMotorEx.class, "perpPod");
@@ -120,7 +120,7 @@ public class AutoMoveShortLShape extends LinearOpMode {
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        intakeDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         frontLeftDrive. setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -359,7 +359,7 @@ public class AutoMoveShortLShape extends LinearOpMode {
             frontRightDrive.setPower(frontRightPower);
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
-            intakeDrive.setPower(intakePower);
+            intakeMotor.setPower(intakePower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
