@@ -149,9 +149,9 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double heading = 0;
 
         final double inchesPerTick = 0.002968435 * (17.0 / 12.0) * (8.0 / 10.91666);//some value please calculate!!
-        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655);
+        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655) / (30 / 16.25);
         double trackwidth = 14.375;
-        double forward_offset = 4.55; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
+        double forward_offset = -4.98; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
 
 
 
@@ -192,7 +192,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             //defines the variables
 
             double left_encoder_pos = -frontLeftDrive.getCurrentPosition() * inchesPerTick;
-            double right_encoder_pos = backLeftDrive.getCurrentPosition() * inchesPerTick;
+            double right_encoder_pos = -  backLeftDrive.getCurrentPosition() * inchesPerTick;
             double center_encoder_pos = frontRightDrive.getCurrentPosition() * inchesPerTick;
 
             // Place holders

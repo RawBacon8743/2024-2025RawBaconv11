@@ -162,9 +162,9 @@ public class AutoMoveFarLShape extends LinearOpMode {
         double heading = 0;
 
         final double inchesPerTick = 0.002968435 * 17 / 12 * (8 / 10.91666);//some value please calculate!!
-        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655);
-        double trackwidth = 14.28;
-        double forward_offset = 4.55;
+        final double rotationCalibration = 43.2364933897 / 30 * (30 /22.655) / (30 / 16.25);
+        double trackwidth = 14.375;
+        double forward_offset = -4.98;
 
         final double atanDistStretch = 10;
         final double atanRotStretch = 0.7;
@@ -271,7 +271,7 @@ public class AutoMoveFarLShape extends LinearOpMode {
             //defines the variables
 
             double left_encoder_pos   = -frontLeftDrive.getCurrentPosition() * inchesPerTick;
-            double right_encoder_pos  =  backLeftDrive.getCurrentPosition() * inchesPerTick;
+            double right_encoder_pos  = -backLeftDrive.getCurrentPosition() * inchesPerTick;
             double center_encoder_pos =  frontRightDrive.getCurrentPosition() * inchesPerTick;
 
 
