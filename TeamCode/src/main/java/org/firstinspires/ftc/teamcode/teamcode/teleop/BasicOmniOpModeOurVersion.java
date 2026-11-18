@@ -251,10 +251,10 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
                 servoMotorsPower = 0;
             }
 
-
-            if (gamepad2.x) {
-                launchMotorPower = -1;
-            }
+            launchMotorPower = -.98;
+            //if (gamepad2.x) {
+            //    launchMotorPower = -.98;
+            //}
 
             if (gamepad2.y) {
                 launchMotorPower = 0;
