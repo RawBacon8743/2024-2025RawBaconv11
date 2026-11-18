@@ -65,7 +65,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Omni Linear OpMode", group="Linear OpMode")
+@TeleOp(name="Basic: Omni Linear OpMode Two Controler", group="Linear OpMode")
 //@Disabled
 public class BasicOmniOpModeOurVersion extends LinearOpMode {
 
@@ -251,7 +251,7 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
                 servoMotorsPower = 0;
             }
 
-            launchMotorPower = -.98;
+            launchMotorPower = -.9;
             //if (gamepad2.x) {
             //    launchMotorPower = -.98;
             //}
