@@ -257,7 +257,7 @@ public class AutoShootFarLShape extends LinearOpMode {
 
                 case target2:
                     target_x_pos   = -36;
-                    target_y_pos   = 10;
+                    target_y_pos   = 18;
                     target_heading = Math.toRadians(0);
                     //target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
 
@@ -275,8 +275,8 @@ public class AutoShootFarLShape extends LinearOpMode {
                     }
                     break;
                 case target3:
-                    target_x_pos = -42;
-                    target_y_pos = 84;
+                    target_x_pos = -44;
+                    target_y_pos = 88;
                     target_heading = Math.toRadians(0);
                     
                     if (inRange){

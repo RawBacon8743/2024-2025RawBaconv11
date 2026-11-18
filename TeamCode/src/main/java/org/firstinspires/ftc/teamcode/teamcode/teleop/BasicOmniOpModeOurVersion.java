@@ -154,6 +154,9 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
         double forward_offset = -4.98; //<- please change it is wrong right now? 8.05 to 8.25 to -8.25 then reversed
 
 
+        double launchMotorPower = 0;
+
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -171,7 +174,6 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
             double backLeftPower   = axial - lateral + yaw;
             double backRightPower  = axial + lateral - yaw;
             double intakePower = 0;
-            double launchMotorPower = 0;
             double servoMotorsPower = 0;
 
             // Normalize the values so no wheel power exceeds 100%
@@ -251,10 +253,9 @@ public class BasicOmniOpModeOurVersion extends LinearOpMode {
                 servoMotorsPower = 0;
             }
 
-            launchMotorPower = -.9;
-            //if (gamepad2.x) {
-            //    launchMotorPower = -.98;
-            //}
+            if (gamepad2.x) {
+                launchMotorPower = -.9;
+            }
 
             if (gamepad2.y) {
                 launchMotorPower = 0;
