@@ -35,8 +35,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 /*
@@ -67,9 +65,9 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="farL", group="Linear OpMode")
+@Autonomous(name="shootFar", group="Linear OpMode")
 //@Disabled
-public class AutoMoveFarLShape extends LinearOpMode {
+public class AutoShootFarLShape extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -88,8 +86,11 @@ public class AutoMoveFarLShape extends LinearOpMode {
     public enum TargetState {
         target1,
         rest1,
+        shoot1,
         target2,
-        rest2
+        rest2,
+        target3,
+        rest3
     }
 
     @Override
@@ -232,7 +233,7 @@ public class AutoMoveFarLShape extends LinearOpMode {
                 case target1:
 
                     target_x_pos   = 0;
-                    target_y_pos   = 36;
+                    target_y_pos   = 10;
                     target_heading = Math.toRadians(0);
                     //target_heading = Math.toRadians(135);
 
@@ -244,12 +245,19 @@ public class AutoMoveFarLShape extends LinearOpMode {
                     break;
                 case rest1:
                     if (runtime.seconds() > breakTime) {
+                        breakTime = runtime.seconds() + 2;
+                        targetState = targetState.shoot1;
+                    }
+                    break;
+                case shoot1:
+                    if (runtime.seconds() > breakTime){
                         targetState = targetState.target2;
                     }
                     break;
+
                 case target2:
-                    target_x_pos   = -12;
-                    target_y_pos   = 36;
+                    target_x_pos   = -36;
+                    target_y_pos   = 10;
                     target_heading = Math.toRadians(0);
                     //target_heading = Math.toRadians(-90); // it took an unoptimal rotation.
 
@@ -260,8 +268,26 @@ public class AutoMoveFarLShape extends LinearOpMode {
 
                     break;
                 case rest2:
-                    telemetry.addData("im in rest",0);
-
+                    //telemetry.addData("im in rest",0);
+                    if(runtime.seconds() > breakTime){
+                        breakTime = runtime.seconds() + 2;
+                        targetState = targetState.target3;
+                    }
+                    break;
+                case target3:
+                    target_x_pos = -42;
+                    target_y_pos = 84;
+                    target_heading = Math.toRadians(0);
+                    
+                    if (inRange){
+                        breakTime = runtime.seconds() + 2;
+                        targetState = targetState.rest3;
+                    }
+                    break;
+                case rest3:
+                    if(runtime.seconds() > breakTime){
+                        //targetState = TargetState.target1;
+                    }
                     break;
             }
 
